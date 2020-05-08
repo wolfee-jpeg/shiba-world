@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import Home from '../home'
 import Login from '../login'
 import Logout from '../logout'
-import Assets from '../assets'
+import BrowseAssets from '../browse-all'
 import PageHeader from '../../components/header'
 import PageFooter from '../../components/footer'
 import CreateAsset from '../create-asset'
@@ -44,8 +44,7 @@ const App = ({ searchTerm }) => (
               component={Home}
               meta={{
                 title: 'Browse assets',
-                description:
-                  'A place for assets.'
+                description: 'A place for assets.'
               }}
             />
             <RouteWithMeta
@@ -70,8 +69,18 @@ const App = ({ searchTerm }) => (
             />
             <RouteWithMeta
               exact
-              path={routes.assets}
-              component={Assets}
+              path={routes.browse}
+              component={BrowseAssets}
+              meta={{
+                title: 'Browse the assets',
+                description:
+                  'All available assets are shown here so that you can browse them.'
+              }}
+            />
+            <RouteWithMeta
+              exact
+              path={routes.browseWithVar}
+              component={BrowseAssets}
               meta={{
                 title: 'Browse the assets',
                 description:
@@ -84,8 +93,7 @@ const App = ({ searchTerm }) => (
               component={CreateAsset}
               meta={{
                 title: 'Upload a new asset',
-                description:
-                  'A form that lets you upload a new asset.'
+                description: 'A form that lets you upload a new asset.'
               }}
             />
             <RouteWithMeta
@@ -95,8 +103,7 @@ const App = ({ searchTerm }) => (
               // TODO: Use list title as page title
               meta={{
                 title: 'View a single asset',
-                description:
-                  'This is a single asset..'
+                description: 'This is a single asset..'
               }}
             />
             <RouteWithMeta
@@ -105,8 +112,7 @@ const App = ({ searchTerm }) => (
               component={EditAsset}
               meta={{
                 title: 'Edit an asset',
-                description:
-                  'This form lets you edit an asset.'
+                description: 'This form lets you edit an asset.'
               }}
             />
             <RouteWithMeta

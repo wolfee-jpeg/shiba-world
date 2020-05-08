@@ -31,7 +31,7 @@ const navItems = [
   },
   {
     label: 'Browse',
-    url: routes.assets
+    url: routes.browse
   },
   {
     label: 'Upload',

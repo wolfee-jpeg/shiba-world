@@ -5,14 +5,105 @@ import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
 import RecentAssets from '../../components/recent-assets'
 
-const useStyles = makeStyles(theme => ({
+import { Link } from 'react-router-dom'
+import Card from '@material-ui/core/Card'
+import CardActionArea from '@material-ui/core/CardActionArea'
+import CardActions from '@material-ui/core/CardActions'
+import CardContent from '@material-ui/core/CardContent'
+import CardMedia from '@material-ui/core/CardMedia'
+import Button from '@material-ui/core/Button'
+import * as routes from '../../routes'
+
+import shibaInuImageUrl from '../../assets/images/species/shiba_inu.jpg'
+import avaliImageUrl from '../../assets/images/species/avali.png'
+import bestBoiImageUrl from '../../assets/images/species/best_boi.png'
+import sergalImageUrl from '../../assets/images/species/sergal.png'
+
+const useSpeciesStyles = makeStyles(theme => ({
   root: {
-    padding: theme.spacing(3, 2)
+    width: 250,
+    marginRight: '0.5rem'
+  },
+  media: {
+    height: 250
+  }
+}))
+
+const Species = ({ name, title, description, imageUrl }) => {
+  const classes = useSpeciesStyles()
+  const url = routes.browseWithVar.replace(':tagName', name)
+
+  return (
+    <Card className={classes.root}>
+      <CardActionArea>
+        <Link to={url}>
+          <CardMedia
+            className={classes.media}
+            image={imageUrl}
+            title={`Thumbnail for ${name}`}
+          />
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="h2">
+              {title}
+            </Typography>
+            <Typography variant="body2" color="textSecondary" component="p">
+              {description}
+            </Typography>
+          </CardContent>
+        </Link>
+      </CardActionArea>
+      <CardActions>
+        <Button size="small" color="primary">
+          <Link to={url}>Browse</Link>
+        </Button>
+      </CardActions>
+    </Card>
+  )
+}
+
+console.log(shibaInuImageUrl)
+
+const SpeciesBrowser = () => (
+  <>
+    <h2>Species</h2>
+    <div style={{ display: 'flex' }}>
+      <Species
+        name="shiba"
+        title="Pikapetey Shiba"
+        description="Cute fucks"
+        imageUrl={shibaInuImageUrl}
+      />
+      <Species
+        name="avali"
+        title="Aioli"
+        description="Space chicken"
+        imageUrl={avaliImageUrl}
+      />
+      <Species
+        name="bestboi"
+        title="Best Boi"
+        description="The best of the bois"
+        imageUrl={bestBoiImageUrl}
+      />
+      <Species
+        name="sergal"
+        title="Sergal"
+        description="Wedge of cheese"
+        imageUrl={sergalImageUrl}
+      />
+    </div>
+  </>
+)
+
+const useViewStyles = makeStyles(theme => ({
+  root: {
+    padding: theme.spacing(3, 2),
+    marginBottom: '1rem'
   }
 }))
 
 const Home = ({ searchTerm }) => {
-  const classes = useStyles()
+  const classes = useViewStyles()
 
   return (
     <>
@@ -26,6 +117,7 @@ const Home = ({ searchTerm }) => {
           </Typography>
         </Paper>
       )}
+      {!searchTerm && <SpeciesBrowser />}
       {!searchTerm && <RecentAssets />}
     </>
   )
