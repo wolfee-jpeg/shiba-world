@@ -8,7 +8,7 @@ const SearchResults = ({ searchTerm }) => {
 
   const [isLoading, isErrored, results] = useDatabaseSearch(
     'assets',
-    'keywords',
+    'tags',
     'array-contains',
     searchTerm
   )
@@ -16,10 +16,10 @@ const SearchResults = ({ searchTerm }) => {
   if (isLoading || isErrored) return null
 
   if (!results.length) {
-    return <p>No lists found matching your search term</p>
+    return <p>No assets found matching your search term</p>
   }
 
-  return <AssetResults lists={results} />
+  return <AssetResults assets={results} />
 }
 
 const mapStateToProps = ({ app: { searchTerm } }) => ({ searchTerm })
