@@ -1,13 +1,13 @@
 import React from 'react'
-import SingleListView from '../single-list-view'
+import AssetOverview from '../asset-overview'
 import useDatabase from '../../hooks/useDatabase'
 import LoadingIndicator from '../loading'
 import { Typography } from '@material-ui/core'
 
-const FeaturedList = () => {
-  const [isFetching, isErrored, featuredList] = useDatabase(
+export default () => {
+  const [isFetching, isErrored, featuredAsset] = useDatabase(
     'special',
-    'featuredList',
+    'featuredAsset',
     null,
     false // disable refs
   )
@@ -16,24 +16,22 @@ const FeaturedList = () => {
     return <LoadingIndicator />
   }
 
-  if (isErrored || !featuredList || !featuredList.list) {
-    return 'Failed to get featured list!'
+  if (isErrored || !featuredAsset || !featuredAsset.asset) {
+    return 'Failed to get featured asset!'
   }
 
   const {
-    list: { id: listId }
-  } = featuredList
+    asset: { id: assetId }
+  } = featuredAsset
 
   return (
     <>
       <Typography
         variant="h1"
         style={{ margin: '3rem 0', fontSize: '2rem', fontWeight: 'bold' }}>
-        Featured List
+        Featured Asset
       </Typography>
-      <SingleListView listId={listId} small />
+      <AssetOverview assetId={assetId} small />
     </>
   )
 }
-
-export default FeaturedList

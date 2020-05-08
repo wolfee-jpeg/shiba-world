@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { Link } from 'react-router-dom'
 import useDatabase from '../../hooks/useDatabase'
 import { makeStyles } from '@material-ui/core/styles'
@@ -114,7 +114,12 @@ const SingleListView = ({ assetId, auth, small = false }) => {
         </Link>
       </Typography>
       <Typography style={{ margin: '1rem 0' }} component="p">
-        {description}
+        {description.split('\n').map(descChunk => (
+          <Fragment key={descChunk}>
+            <br />
+            {descChunk}
+          </Fragment>
+        ))}
       </Typography>
       <div>
         {tags
@@ -143,7 +148,7 @@ const SingleListView = ({ assetId, auth, small = false }) => {
           {modifiedBy ? modifiedBy.username : '(unknown)'}
         </Typography>
       )}
-      {!small && (
+      {/* {!small && (
         <>
           <FeatureListButton assetId={assetId} />
           <Grid container>
@@ -161,7 +166,7 @@ const SingleListView = ({ assetId, auth, small = false }) => {
             </Grid>
           </Grid>
         </>
-      )}
+      )} */}
     </>
   )
 }

@@ -13,10 +13,11 @@ import * as routes from '../../routes'
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 345
+    width: 200,
+    margin: '1rem'
   },
   media: {
-    height: 140
+    height: 200
   }
 })
 

@@ -4,7 +4,9 @@ import TextField from '@material-ui/core/TextField'
 import FormControl from '@material-ui/core/FormControl'
 import Button from '@material-ui/core/Button'
 
-const Hint = ({ children }) => <div>{children}</div>
+const Hint = ({ children }) => (
+  <div style={{ fontSize: '80%', color: 'grey' }}>{children}</div>
+)
 
 const FormField = ({
   label,
@@ -35,11 +37,12 @@ const FormField = ({
 
 export default ({
   asset: {
+    id,
     title,
     description,
     createdAt,
     createdBy,
-    tags,
+    tags = [],
     thumbnailUrl,
     modifiedAt,
     modifiedBy
@@ -49,7 +52,7 @@ export default ({
   const [fieldData, setFieldData] = useState({
     title,
     description,
-    tags,
+    tags: tags || [],
     thumbnailUrl
   })
 
@@ -84,14 +87,16 @@ export default ({
       />
       <FormField
         label="Tags"
-        value={tags || ''}
+        value={tags ? tags.join('\n') : ''}
         hint="A list of tags. One tag per new line."
         onChange={newVal => onFieldChange('tags', newVal)}
         convertToValidField={text => text.split('\n')}
         multiline
         rows={10}
       />
-      <Button onClick={() => onSubmit(fieldData)}>Save</Button>
+      <Button onClick={() => onSubmit(fieldData)}>
+        {id ? 'Save' : 'Create'}
+      </Button>
     </form>
   )
 }

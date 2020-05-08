@@ -1,9 +1,9 @@
 import React from 'react'
-import SingleListView from '../../components/single-list-view'
+import AssetOverview from '../../components/asset-overview'
 
 const ViewList = ({ match: { params } }) => (
   <>
-    <SingleListView assetId={params.assetId} />
+    <AssetOverview assetId={params.assetId} />
   </>
 )
 
