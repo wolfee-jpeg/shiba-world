@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import useDatabase from '../../hooks/useDatabase'
 import { makeStyles } from '@material-ui/core/styles'
 import LoadingIcon from '../../components/loading'
-import { Grid, List, Typography, Button, Chip } from '@material-ui/core'
+import { Grid, List, Typography, Button, Chip, Paper } from '@material-ui/core'
 import FormattedDate from '../formatted-date'
 import CommentList from '../comment-list'
 import AddCommentForm from '../add-comment-form'
@@ -77,6 +77,27 @@ const CardRow = ({ ranking, imageUrl, cardName, reason }) => {
   )
 }
 
+const getFilenameFromUrl = url =>
+  url
+    .replace('%2F', '/')
+    .split('/')
+    .pop()
+    .split('?')
+    .shift()
+    .replace('%20', ' ')
+
+const FileResult = ({ url }) => (
+  <Paper style={{ padding: '1rem' }}>
+    {getFilenameFromUrl(url)}
+    <br />
+    <Button>
+      <a href={url} target="_blank">
+        Download
+      </a>
+    </Button>
+  </Paper>
+)
+
 const useSingleListViewStyles = makeStyles({
   media: {}
 })
@@ -100,6 +121,7 @@ const SingleListView = ({ assetId, auth, small = false }) => {
     createdAt,
     createdBy,
     tags,
+    fileUrls,
     thumbnailUrl,
     modifiedAt,
     modifiedBy
@@ -126,6 +148,10 @@ const SingleListView = ({ assetId, auth, small = false }) => {
           ? tags.map(label => <Chip key={label} label={label} />)
           : '(no tags)'}
       </div>
+      <br />
+      {fileUrls.map(fileUrl => (
+        <FileResult key={fileUrl} url={fileUrl} />
+      ))}
       <br />
       <div>
         {small ? (

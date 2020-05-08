@@ -3,6 +3,7 @@ import Paper from '@material-ui/core/Paper'
 import TextField from '@material-ui/core/TextField'
 import FormControl from '@material-ui/core/FormControl'
 import Button from '@material-ui/core/Button'
+import FileUploader from '../file-uploader'
 
 const Hint = ({ children }) => (
   <div style={{ fontSize: '80%', color: 'grey' }}>{children}</div>
@@ -35,6 +36,30 @@ const FormField = ({
   </Paper>
 )
 
+const FileAttacherItem = ({ url, onRemove }) => (
+  <Paper style={{ margin: '0 0 1rem 0', padding: '2rem' }}>
+    {url}
+    <br />
+    <Button variant="contained" onClick={() => onRemove()}>
+      Remove
+    </Button>
+  </Paper>
+)
+
+const FileAttacher = ({ fileUrls, onFileAttached, onFileRemoved }) => (
+  <>
+    {fileUrls.map(fileUrl => (
+      <FileAttacherItem url={fileUrl} onRemove={() => onFileRemoved(fileUrl)} />
+    ))}
+    <Paper style={{ margin: '0 0 1rem 0', padding: '2rem' }}>
+      <FileUploader
+        directoryPath="asset-uploads"
+        onDownloadUrl={url => onFileAttached(url)}
+      />
+    </Paper>
+  </>
+)
+
 export default ({
   asset: {
     id,
@@ -44,6 +69,7 @@ export default ({
     createdBy,
     tags = [],
     thumbnailUrl,
+    fileUrls = [],
     modifiedAt,
     modifiedBy
   } = {},
@@ -52,7 +78,8 @@ export default ({
   const [fieldData, setFieldData] = useState({
     title,
     description,
-    tags: tags || [],
+    tags,
+    fileUrls,
     thumbnailUrl
   })
 
@@ -67,7 +94,7 @@ export default ({
     <form>
       <FormField
         label="Title"
-        value={title}
+        value={fieldData.title}
         hint="The name of the asset."
         onChange={newVal => onFieldChange('title', newVal)}
       />
@@ -81,20 +108,37 @@ export default ({
       />
       <FormField
         label="Thumbnail URL"
-        value={thumbnailUrl || ''}
+        value={fieldData.thumbnailUrl}
         hint="The URL of a thumbnail."
         onChange={newVal => onFieldChange('thumbnailUrl', newVal)}
       />
       <FormField
         label="Tags"
-        value={tags ? tags.join('\n') : ''}
+        value={fieldData.tags.join('\n')}
         hint="A list of tags. One tag per new line."
         onChange={newVal => onFieldChange('tags', newVal)}
         convertToValidField={text => text.split('\n')}
         multiline
         rows={10}
       />
-      <Button onClick={() => onSubmit(fieldData)}>
+      <FileAttacher
+        fileUrls={fieldData.fileUrls}
+        onFileAttached={fileUrl =>
+          onFieldChange('fileUrls', fieldData.fileUrls.concat([fileUrl]))
+        }
+        onFileRemoved={fileUrl =>
+          onFieldChange(
+            'fileUrls',
+            fieldData.fileUrls.filter(url => url !== fileUrl)
+          )
+        }
+      />
+      <br />
+      <br />
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() => onSubmit(fieldData)}>
         {id ? 'Save' : 'Create'}
       </Button>
     </form>
