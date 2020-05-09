@@ -21,7 +21,7 @@ const FormField = ({
     <FormControl fullWidth>
       <TextField
         label={label}
-        value={value || ''}
+        defaultValue={value || ''}
         onChange={event =>
           onChange(
             convertToValidField

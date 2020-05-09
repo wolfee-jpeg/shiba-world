@@ -24,7 +24,7 @@ const CreateAsset = ({ auth }) => {
 
   return (
     <>
-      <h1>Create Asset</h1>
+      <h1>Upload Asset</h1>
       {invalidFieldName && `Field ${invalidFieldName} is invalid!`}
       <AssetEditor
         onSubmit={newFields => {
