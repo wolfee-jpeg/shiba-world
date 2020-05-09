@@ -19,7 +19,7 @@ import SearchResults from '../../components/search-results'
 
 const RouteWithMeta = ({ meta, ...routeProps }) => {
   useEffect(() => {
-    document.title = `${meta.title} &mdash; MTG Card Rank`
+    document.title = `${meta.title} &mdash; VRC Arena`
 
     document
       .querySelector('meta[name="description"]')
@@ -43,8 +43,10 @@ const App = ({ searchTerm }) => (
               path={routes.home}
               component={Home}
               meta={{
-                title: 'Browse assets',
-                description: 'A place for assets.'
+                title:
+                  'Browse and upload assets for the different species of VRChat',
+                description:
+                  'Download and upload various kinds of assets for various species found in the online multiplayer VR social game VRChat.'
               }}
             />
             <RouteWithMeta
