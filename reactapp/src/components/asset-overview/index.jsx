@@ -77,6 +77,13 @@ const CardRow = ({ ranking, imageUrl, cardName, reason }) => {
   )
 }
 
+const isUrlAnImage = url =>
+  url.indexOf('png') >= 0 || url.indexOf('jpg') >= 0 || url.indexOf('jpeg') >= 0
+
+const FileResultThumbnail = ({ url }) => {
+  return <img src={url} height={200} />
+}
+
 const getFilenameFromUrl = url =>
   url
     .replace('%2F', '/')
@@ -87,14 +94,18 @@ const getFilenameFromUrl = url =>
     .replace('%20', ' ')
 
 const FileResult = ({ url }) => (
-  <Paper style={{ padding: '1rem' }}>
+  <Paper style={{ padding: '1rem', marginBottom: '1rem' }}>
     {getFilenameFromUrl(url)}
     <br />
-    <Button>
-      <a href={url} target="_blank">
-        Download
-      </a>
-    </Button>
+    {isUrlAnImage(url) ? (
+      <FileResultThumbnail url={url} />
+    ) : (
+      <Button>
+        <a href={url} target="_blank">
+          Download
+        </a>
+      </Button>
+    )}
   </Paper>
 )
 
@@ -129,16 +140,18 @@ const SingleListView = ({ assetId, auth, small = false }) => {
 
   return (
     <>
-      <img src={thumbnailUrl} height={200} />
-      <Typography variant="h1" style={{ fontSize: small ? '1.5rem' : '3rem' }}>
+      <img src={thumbnailUrl} height={300} />
+      <Typography
+        variant="h1"
+        style={{ fontSize: small ? '1.5rem' : '3rem', marginTop: '2rem' }}>
         <Link to={routes.viewAssetWithVar.replace(':assetId', assetId)}>
           {title}
         </Link>
       </Typography>
       <Typography style={{ margin: '1rem 0' }} component="p">
-        {description.split('\n').map(descChunk => (
+        {description.split('\n').map((descChunk, idx) => (
           <Fragment key={descChunk}>
-            <br />
+            {idx !== 0 && <br />}
             {descChunk}
           </Fragment>
         ))}
@@ -154,7 +167,9 @@ const SingleListView = ({ assetId, auth, small = false }) => {
             ))
           : '(no tags)'}
       </div>
-      <br />
+      <Typography variant="h2" style={{ fontSize: '2rem', margin: '2rem 0' }}>
+        Files
+      </Typography>
       {fileUrls.map(fileUrl => (
         <FileResult key={fileUrl} url={fileUrl} />
       ))}
