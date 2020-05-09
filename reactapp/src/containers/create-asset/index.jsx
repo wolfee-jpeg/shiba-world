@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import useDatabaseSave from '../../hooks/useDatabaseSave'
+import useDatabaseDocument from '../../hooks/useDatabaseDocument'
 import withAuthProfile from '../../hocs/withAuthProfile'
 import AssetEditor from '../../components/asset-editor'
 import withRedirectOnNotAuth from '../../hocs/withRedirectOnNotAuth'
@@ -11,6 +12,7 @@ const CreateAsset = ({ auth }) => {
   const [invalidFieldName, setInvalidFieldName] = useState('')
   const [isSaving, isSuccess, save] = useDatabaseSave('assets')
   const userId = auth.uid
+  const [userDocument] = useDatabaseDocument('users', userId)
 
   if (isSaving) {
     return 'Creating...'
@@ -33,7 +35,7 @@ const CreateAsset = ({ auth }) => {
             }
           }
 
-          save({ ...newFields, createdBy: userId })
+          save({ ...newFields, createdAt: new Date(), createdBy: userDocument })
         }}
       />
     </>
