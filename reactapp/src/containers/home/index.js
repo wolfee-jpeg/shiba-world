@@ -18,6 +18,7 @@ import shibaInuImageUrl from '../../assets/images/species/shiba_inu.jpg'
 import avaliImageUrl from '../../assets/images/species/avali.png'
 import bestBoiImageUrl from '../../assets/images/species/best_boi.png'
 import sergalImageUrl from '../../assets/images/species/sergal.png'
+import rexouiumImageUrl from '../../assets/images/species/rexouium.png'
 
 const useSpeciesStyles = makeStyles(theme => ({
   root: {
@@ -90,6 +91,12 @@ const SpeciesBrowser = () => (
         title="Sergal"
         description="Wedge of cheese"
         imageUrl={sergalImageUrl}
+      />
+      <Species
+        name="rexouium"
+        title="T-Rex"
+        description="King caretakers of my butt"
+        imageUrl={rexouiumImageUrl}
       />
     </div>
   </>

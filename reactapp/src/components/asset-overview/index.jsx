@@ -145,7 +145,13 @@ const SingleListView = ({ assetId, auth, small = false }) => {
       </Typography>
       <div>
         {tags
-          ? tags.map(label => <Chip key={label} label={label} />)
+          ? tags.map(label => (
+              <Chip
+                key={label}
+                label={label}
+                style={{ marginRight: '0.25rem' }}
+              />
+            ))
           : '(no tags)'}
       </div>
       <br />
