@@ -35,13 +35,22 @@ export default ({ directoryPath = '', onDownloadUrl }) => {
     }
   }
 
-  if (isUploading) {
+  const onUploadAnotherClick = () => {
+    uploadedFileRef.current = null
+  }
+
+  if (uploadedFileRef.current && isUploading) {
     return `Uploading ${percentageDone}%`
   }
 
-  if (isSuccess) {
-    return `Upload uploaded successfully`
-  }
+  // if (uploadedFileRef.current && isSuccess) {
+  //   return (
+  //     <>
+  //       Asset uploaded successfully.{' '}
+  //       <Button onClick={onUploadAnotherClick}>Upload Another</Button>
+  //     </>
+  //   )
+  // }
 
   return (
     <>

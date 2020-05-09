@@ -21,7 +21,7 @@ const FormField = ({
     <FormControl fullWidth>
       <TextField
         label={label}
-        defaultValue={value || ''}
+        value={value || ''}
         onChange={event =>
           onChange(
             convertToValidField
@@ -61,6 +61,7 @@ const FileAttacher = ({ fileUrls, onFileAttached, onFileRemoved }) => (
 )
 
 export default ({
+  assetId,
   asset: {
     id,
     title,
@@ -139,7 +140,7 @@ export default ({
         variant="contained"
         color="primary"
         onClick={() => onSubmit(fieldData)}>
-        {id ? 'Save' : 'Create'}
+        {assetId ? 'Save' : 'Create'}
       </Button>
     </form>
   )

@@ -5,9 +5,11 @@ import withEditorsOnly from '../../hocs/withEditorsOnly'
 import useDatabase from '../../hooks/useDatabase'
 import useDatabaseSave from '../../hooks/useDatabaseSave'
 import LoadingIndicator from '../../components/loading'
+import { useState } from 'react'
 
 const EditAsset = ({ match: { params } }) => {
   const [isLoading, isErrored, asset] = useDatabase('assets', params.assetId)
+  const [newFields, setNewFields] = useState()
   const [isSaving, wasSaveSuccessOrFail, save] = useDatabaseSave(
     'assets',
     params.assetId
@@ -26,9 +28,10 @@ const EditAsset = ({ match: { params } }) => {
       ) : (
         <AssetEditor
           assetId={params.assetId}
-          asset={asset}
+          asset={newFields ? newFields : asset}
           onSubmit={fields => {
             save(fields)
+            setNewFields(fields)
           }}
         />
       )}
