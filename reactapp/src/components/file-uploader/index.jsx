@@ -48,10 +48,12 @@ export default ({ directoryPath = '', onDownloadUrl }) => {
       <DropzoneArea
         onChange={onDropzoneAreaChange}
         filesLimit={1}
+        // acceptedFiles={['*/*']}
         // acceptedFiles={['image/jpg, image/jpeg, image/png']}
-        maxFileSize={50 * 1000 * 1000}
+        // maxFileSize={50 * 1000 * 1000}
       />
-      Max size 50mb
+      Upload images (jpg, png, etc.) and ZIP files. RAR, FBX and unitypackage
+      not supported (use ZIP)
       <br />
       <Button variant="contained" onClick={onUploadClick}>
         Upload
