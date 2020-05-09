@@ -14,10 +14,17 @@ import * as routes from '../../routes'
 const useStyles = makeStyles({
   root: {
     width: 200,
-    margin: '1rem'
+    margin: '1rem',
+    position: 'relative',
+    paddingBottom: '2rem'
   },
   media: {
     height: 200
+  },
+  actions: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0
   }
 })
 
@@ -45,7 +52,7 @@ export default function AssetItem({
           </CardContent>
         </Link>
       </CardActionArea>
-      <CardActions>
+      <CardActions className={classes.actions}>
         <Button size="small" color="primary">
           <Link to={routes.viewAssetWithVar.replace(':assetId', id)}>View</Link>
         </Button>
