@@ -13,7 +13,6 @@ const SearchBar = ({ searchTerm, changeSearchTerm }) => {
       margin: '1.5rem auto',
       display: 'flex',
       alignItems: 'center',
-      // maxWidth: 600,
       ['@media (min-width: 960px)']: {
         margin: '0 auto'
       }
@@ -31,7 +30,7 @@ const SearchBar = ({ searchTerm, changeSearchTerm }) => {
     <Paper className={classes.root}>
       <InputBase
         className={classes.input}
-        placeholder="Search keywords"
+        placeholder={`Search keywords eg. "shiba", "collar", "hair", "brown"`}
         autoFocus={true}
         autoComplete="false"
         onChange={event => changeSearchTerm(event.target.value)}

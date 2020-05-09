@@ -4,6 +4,8 @@ import TextField from '@material-ui/core/TextField'
 import FormControl from '@material-ui/core/FormControl'
 import Button from '@material-ui/core/Button'
 import FileUploader from '../file-uploader'
+import tagList from '../../tags'
+import { Fragment } from 'react'
 
 const Hint = ({ children }) => (
   <div style={{ fontSize: '80%', color: 'grey' }}>{children}</div>
@@ -31,7 +33,14 @@ const FormField = ({
         }
         {...textFieldProps}
       />
-      <Hint>{hint}</Hint>
+      <Hint>
+        {hint.split('\n').map((hint, idx) => (
+          <Fragment key={hint}>
+            {idx !== 0 && <br />}
+            {hint}
+          </Fragment>
+        ))}
+      </Hint>
     </FormControl>
   </Paper>
 )
@@ -116,7 +125,10 @@ export default ({
       <FormField
         label="Tags"
         value={fieldData.tags.join('\n')}
-        hint="A list of tags. One tag per new line."
+        hint={`A list of tags (one per line) to describe your asset.
+Used for categories. Categories: ${Object.values(tagList).join(', ')}.
+Your asset can belong to multiple categories.
+Eg. for collar tag it "collar", if it is colored blue tag it "blue", etc.`}
         onChange={newVal => onFieldChange('tags', newVal)}
         convertToValidField={text => text.split('\n')}
         multiline
@@ -134,14 +146,14 @@ export default ({
           )
         }
       />
-      <br />
-      <br />
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={() => onSubmit(fieldData)}>
-        {assetId ? 'Save' : 'Create'}
-      </Button>
+      <div style={{ textAlign: 'center' }}>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => onSubmit(fieldData)}>
+          {assetId ? 'Save' : 'Create'}
+        </Button>
+      </div>
     </form>
   )
 }

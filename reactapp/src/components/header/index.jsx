@@ -60,13 +60,6 @@ const navItems = [
   }
 ]
 
-const NavigationLink = props => (
-  <Link
-    {...props}
-    style={{ display: 'block', width: '100%', height: '100%' }}
-  />
-)
-
 const useStyles = makeStyles({
   header: {
     padding: '1rem 1rem',
@@ -111,8 +104,18 @@ const useStyles = makeStyles({
   },
   listItemIcon: {
     color: '#240b36'
+  },
+  menuItemLink: {
+    display: 'block',
+    width: '100%',
+    height: '100%'
   }
 })
+
+const NavigationLink = props => {
+  const classes = useStyles()
+  return <Link {...props} className={classes.menuItemLink} />
+}
 
 const DrawerContainer = withAuthProfile(({ auth, isMenuOpen, closeMenu }) => {
   const classes = useStyles()
