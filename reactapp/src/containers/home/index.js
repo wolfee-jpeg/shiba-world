@@ -19,11 +19,14 @@ import avaliImageUrl from '../../assets/images/species/avali.png'
 import bestBoiImageUrl from '../../assets/images/species/best_boi.png'
 import sergalImageUrl from '../../assets/images/species/sergal.png'
 import rexouiumImageUrl from '../../assets/images/species/rexouium.png'
+import kangarooImageUrl from '../../assets/images/species/kangaroo.png'
+import racoonImageUrl from '../../assets/images/species/racoon.png'
+import otherSpeciesImageUrl from '../../assets/images/species/other-species.png'
 
 const useSpeciesStyles = makeStyles(theme => ({
   root: {
     width: 250,
-    marginRight: '0.5rem'
+    margin: '0.5rem'
   },
   media: {
     height: 250
@@ -67,7 +70,7 @@ console.log(shibaInuImageUrl)
 const SpeciesBrowser = () => (
   <>
     <h2>Species</h2>
-    <div style={{ display: 'flex' }}>
+    <div style={{ display: 'flex', flexWrap: 'wrap' }}>
       <Species
         name="shiba"
         title="Pikapetey Shiba"
@@ -97,6 +100,24 @@ const SpeciesBrowser = () => (
         title="T-Rex"
         description="King caretakers of my butt"
         imageUrl={rexouiumImageUrl}
+      />
+      <Species
+        name="kangaroo"
+        title="Kanga"
+        description="I like their pouches UwU"
+        imageUrl={kangarooImageUrl}
+      />
+      <Species
+        name="racoon"
+        title="Racoon"
+        description="Trash pandas"
+        imageUrl={racoonImageUrl}
+      />
+      <Species
+        name="other"
+        title="Other species"
+        description="The other species that some people use"
+        imageUrl={otherSpeciesImageUrl}
       />
     </div>
   </>
