@@ -72,7 +72,7 @@ const useStyles = makeStyles({
     padding: '1rem 1rem',
     borderBottom: '1px solid #260b36',
     marginBottom: '4rem',
-    background: 'linear-gradient(20deg, #c31432, #240b36)',
+    background: 'linear-gradient(20deg, #6e4a9e, #240b36)',
     // boxShadow: '0 1px 3px rgba(0, 0, 0, 0.2)',
     ['@media (min-width: 600px)']: {
       padding: '2rem 2rem'
@@ -120,7 +120,7 @@ const DrawerContainer = withAuthProfile(({ auth, isMenuOpen, closeMenu }) => {
   return (
     <Drawer anchor="right" open={isMenuOpen} onClose={() => closeMenu()}>
       <MenuList className={classes.menuList}>
-        <MenuItem>VRC Assets</MenuItem>
+        <MenuItem>VRC Arena</MenuItem>
       </MenuList>
       <Divider />
       <MenuList className={classes.menuList}>
@@ -156,7 +156,7 @@ const PageHeader = ({ isMenuOpen, openMenu, closeMenu }) => {
       <Grid container>
         <Grid item xs={8} md={4} lg={4} align="left">
           <Link to={routes.home} className={classes.logo}>
-            VRC Assets
+            VRC Arena
           </Link>
         </Grid>
         <Grid

@@ -110,10 +110,12 @@ const Home = ({ searchTerm }) => {
       {!searchTerm && (
         <Paper className={classes.root}>
           <Typography variant="h5" component="h3">
-            Welcome to VRC Assets
+            Welcome to VRC Arena
           </Typography>
           <Typography component="p" style={{ marginTop: '0.5rem' }}>
-            Start by searching for keywords above.
+            A repository of assets for the different species of the online
+            multiplayer social game VRChat. Get started by selecting your
+            favorite species below.
           </Typography>
         </Paper>
       )}
