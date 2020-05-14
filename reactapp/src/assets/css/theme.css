@@ -37,3 +37,7 @@ a {
   color: #240b36;
   text-decoration: none;
 }
+
+p a {
+  text-decoration: underline;
+}

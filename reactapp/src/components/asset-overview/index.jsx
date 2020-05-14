@@ -1,7 +1,8 @@
 import React, { Fragment } from 'react'
 import { Link } from 'react-router-dom'
-import useDatabase from '../../hooks/useDatabase'
 import { makeStyles } from '@material-ui/core/styles'
+import Markdown from 'react-markdown'
+import useDatabase from '../../hooks/useDatabase'
 import LoadingIcon from '../../components/loading'
 import { Grid, List, Typography, Button, Chip, Paper } from '@material-ui/core'
 import FormattedDate from '../formatted-date'
@@ -149,12 +150,7 @@ const SingleListView = ({ assetId, auth, small = false }) => {
         </Link>
       </Typography>
       <Typography style={{ margin: '1rem 0' }} component="p">
-        {description.split('\n').map((descChunk, idx) => (
-          <Fragment key={descChunk}>
-            {idx !== 0 && <br />}
-            {descChunk}
-          </Fragment>
-        ))}
+        <Markdown source={description} />
       </Typography>
       <div>
         {tags
