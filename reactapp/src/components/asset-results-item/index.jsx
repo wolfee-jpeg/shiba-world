@@ -28,6 +28,10 @@ const useStyles = makeStyles({
   }
 })
 
+function truncateTextAndAddEllipsis(text) {
+  return text.length >= 100 ? `${text.slice(0, 100)}...` : text
+}
+
 export default function AssetItem({
   asset: { id, title, description, thumbnailUrl, dateCreated }
 }) {
@@ -47,7 +51,7 @@ export default function AssetItem({
               {title}
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
-              {description}
+              {truncateTextAndAddEllipsis(description)}
             </Typography>
           </CardContent>
         </Link>
