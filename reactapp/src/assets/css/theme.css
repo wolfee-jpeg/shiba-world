@@ -38,6 +38,10 @@ a {
   text-decoration: none;
 }
 
+p {
+  margin: 0 0 0.5rem;
+}
+
 p a {
   text-decoration: underline;
 }
