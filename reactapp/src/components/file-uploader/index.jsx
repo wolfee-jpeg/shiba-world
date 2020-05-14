@@ -59,10 +59,10 @@ export default ({ directoryPath = '', onDownloadUrl }) => {
         filesLimit={1}
         // acceptedFiles={['*/*']}
         // acceptedFiles={['image/jpg, image/jpeg, image/png']}
-        // maxFileSize={50 * 1000 * 1000}
+        maxFileSize={500 * 1000 * 1000} // 500mb
       />
-      Upload images (jpg, png, etc.) and ZIP files. RAR, FBX and unitypackage
-      not supported (use ZIP)
+      Upload images (jpg, png, etc.) and ZIP files. Max 500mb. RAR, FBX and
+      unitypackage not supported (use ZIP)
       <br />
       <Button variant="contained" onClick={onUploadClick}>
         Upload
