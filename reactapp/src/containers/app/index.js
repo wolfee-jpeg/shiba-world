@@ -34,7 +34,7 @@ const App = ({ searchTerm }) => (
     <PageHeader />
     <main className="main">
       <Container maxWidth="lg">
-        <SearchResults />
+        {searchTerm && <SearchResults />}
 
         {!searchTerm && (
           <Switch>

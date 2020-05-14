@@ -45,11 +45,28 @@ const mapReferences = async doc => {
   return newDoc
 }
 
-export default (collectionName, fieldName, operator, value, useRefs = true) => {
+export default (
+  collectionName,
+  fieldNameOrQueries,
+  operator,
+  value,
+  useRefs = true
+) => {
   const [isLoading, setIsLoading] = useState(false)
   const [isErrored, setIsErrored] = useState(false)
   const [results, setResults] = useState([])
   const timer = useRef()
+
+  let queries =
+    fieldNameOrQueries instanceof Array
+      ? fieldNameOrQueries
+      : [
+          {
+            fieldName: fieldNameOrQueries,
+            operator,
+            value
+          }
+        ]
 
   const getData = async () => {
     setIsLoading(true)
@@ -57,7 +74,11 @@ export default (collectionName, fieldName, operator, value, useRefs = true) => {
     try {
       const collection = firestore().collection(collectionName)
 
-      const query = await collection.where(fieldName, operator, value).get()
+      queries.forEach(({ fieldName, operator, value }) => {
+        collection.where(fieldName, operator, value)
+      })
+
+      const query = await collection.get()
 
       setIsLoading(false)
 
@@ -76,13 +97,22 @@ export default (collectionName, fieldName, operator, value, useRefs = true) => {
     }
   }
 
+  const queriesAsString = queries
+    .map(
+      ({ fieldName, operator, value }) =>
+        `${fieldName}.${operator}.${
+          value instanceof Array ? value.join('===') : value
+        }`
+    )
+    .join('+')
+
   useEffect(() => {
     if (timer.current) {
       clearTimeout(timer.current)
     }
 
     timer.current = setTimeout(() => getData(), 500)
-  }, [value])
+  }, [queriesAsString])
 
   return [isLoading, isErrored, results]
 }
