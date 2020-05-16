@@ -20,7 +20,13 @@ const useStyles = makeStyles({
 })
 
 function Title({ tagName }) {
-  return <h1>{tagName ? speciesMeta[tagName].name : 'All Assets'}</h1>
+  return (
+    <h1>
+      {tagName && speciesMeta[tagName]
+        ? speciesMeta[tagName].name
+        : 'All Assets'}
+    </h1>
+  )
 }
 
 function Description({ tagName }) {
