@@ -26,7 +26,7 @@ const FormField = ({
       {type === 'text' ? (
         <TextField
           label={label}
-          defaultValue={value || ''}
+          value={value || ''}
           onChange={event =>
             onChange(
               convertToValidField
@@ -116,6 +116,7 @@ export default ({
     thumbnailUrl
   })
   const [doesHavePermission, setDoesHavePermission] = useState(false)
+  const [showAdvancedFileUrls, setShowAdvancedFileUrls] = useState(false)
 
   const onFieldChange = (fieldName, newVal) => {
     setFieldData({
@@ -177,6 +178,26 @@ Eg. for collar tag it "collar", if it is colored blue tag it "blue", etc.`}
           )
         }
       />
+      {showAdvancedFileUrls === false && (
+        <>
+          <Button
+            style={{ marginBottom: '0.5rem' }}
+            onClick={() => setShowAdvancedFileUrls(true)}>
+            Show advanced mode for files
+          </Button>
+        </>
+      )}
+      {showAdvancedFileUrls && (
+        <FormField
+          label="Attached URLs"
+          value={fieldData.fileUrls.join('\n')}
+          hint={`A list of URLs that have been attached. Add and remove them as you need.`}
+          onChange={newVal => onFieldChange('fileUrls', newVal)}
+          convertToValidField={text => text.split('\n')}
+          multiline
+          rows={10}
+        />
+      )}
       <FormField
         label="I have permission to upload this asset"
         type="checkbox"
