@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import AssetResults from '../asset-results'
 import useDatabaseSearch from '../../hooks/useDatabaseSearch'
-import LoadingIndicator from '../../components/loading'
+import LoadingIndicator from '../../components/loading-indicator'
 
 const SearchResults = ({ searchTerm }) => {
   const [isLoading, isErrored, results] = useDatabaseSearch('assets', [

@@ -1,6 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import LoadingIndicator from '../components/loading'
+import LoadingIndicator from '../components/loading-indicator'
+import NoPermissionMessage from '../components/no-permission-message'
+import ErrorMessage from '../components/error-message'
 import useDatabase from '../hooks/useDatabase'
 
 const mapStateToProps = ({ firebase: { auth } }) => ({ auth })
@@ -8,7 +10,11 @@ const mapStateToProps = ({ firebase: { auth } }) => ({ auth })
 export default (Component, whichFlagName, showMustLoginMessage = true) =>
   connect(mapStateToProps)(({ auth, ...otherProps }) => {
     if (!whichFlagName) {
-      return 'Need flag name to restrict access'
+      return (
+        <ErrorMessage>
+          Cannot restrict access to user flag: no flag name provided
+        </ErrorMessage>
+      )
     }
 
     // On fresh load of a page we wait until firebase gets back to us
@@ -18,7 +24,7 @@ export default (Component, whichFlagName, showMustLoginMessage = true) =>
 
     if (!auth.uid) {
       if (showMustLoginMessage) {
-        return 'You need to log in to do this'
+        return <NoPermissionMessage>You are not logged in</NoPermissionMessage>
       } else {
         return null
       }
@@ -31,11 +37,15 @@ export default (Component, whichFlagName, showMustLoginMessage = true) =>
     }
 
     if (isErrored || !user) {
-      return 'Error fetching your details'
+      return <ErrorMessage>Error fetching your details</ErrorMessage>
     }
 
     if (user[whichFlagName] !== true) {
-      return 'Sorry you cannot access this area as this user'
+      return (
+        <NoPermissionMessage>
+          You do not satisfy the condition of {whichFlagName}
+        </NoPermissionMessage>
+      )
     }
 
     return <Component {...otherProps} />

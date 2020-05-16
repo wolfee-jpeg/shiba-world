@@ -5,7 +5,7 @@ import useDatabaseSave from '../../hooks/useDatabaseSave'
 import useDatabaseDocument from '../../hooks/useDatabaseDocument'
 import withEditorsOnly from '../../hocs/withEditorsOnly'
 import useDatabase from '../../hooks/useDatabase'
-import LoadingIndicator from '../loading'
+import LoadingIndicator from '../loading-indicator'
 
 const AddVoteForm = ({ assetId, auth }) => {
   if (!auth.uid) {

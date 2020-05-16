@@ -1,7 +1,7 @@
 import React from 'react'
 import Comment from '../comment'
 import useDatabase from '../../hooks/useDatabase'
-import LoadingIndicator from '../loading'
+import LoadingIndicator from '../loading-indicator'
 
 const CommentList = ({ listId }) => {
   const [isLoading, isErrored, comments] = useDatabase('comments', null, {

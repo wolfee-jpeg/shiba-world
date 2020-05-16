@@ -1,4 +1,4 @@
 import React from 'react'
 import Message, { types } from '../message'
 
-export default props => <Message {...props} type={types.ERROR} />
+export default props => <Message {...props} type={types.SUCCESS} />

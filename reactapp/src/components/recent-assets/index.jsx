@@ -2,7 +2,7 @@ import React from 'react'
 import { Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import useDatabase from '../../hooks/useDatabase'
-import LoadingIndicator from '../loading'
+import LoadingIndicator from '../loading-indicator'
 import AssetResults from '../asset-results'
 import ErrorMessage from '../error-message'
 

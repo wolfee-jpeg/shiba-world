@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button'
 import useDatabaseSave from '../../hooks/useDatabaseSave'
 import useDatabaseDocument from '../../hooks/useDatabaseDocument'
 import withEditorsOnly from '../../hocs/withEditorsOnly'
-import LoadingIndicator from '../loading'
+import LoadingIndicator from '../loading-indicator'
 
 const FeatureListButton = ({ assetId, auth }) => {
   if (!auth.uid) {

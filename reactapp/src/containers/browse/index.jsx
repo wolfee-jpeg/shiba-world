@@ -3,7 +3,7 @@ import Paper from '@material-ui/core/Paper'
 import { makeStyles } from '@material-ui/core/styles'
 import Markdown from 'react-markdown'
 import useDatabase from '../../hooks/useDatabase'
-import LoadingIcon from '../../components/loading'
+import LoadingIndicator from '../../components/loading-indicator'
 import AssetResults from '../../components/asset-results'
 import speciesMeta from './species-meta'
 import ErrorMessage from '../../components/error-message'
@@ -20,12 +20,12 @@ const useStyles = makeStyles({
 })
 
 function Title({ tagName }) {
-  return <h1>{tagName ? speciesMeta[tagName].name : 'All'}</h1>
+  return <h1>{tagName ? speciesMeta[tagName].name : 'All Assets'}</h1>
 }
 
 function Description({ tagName }) {
   const classes = useStyles()
-  if (!tagName in speciesMeta) {
+  if (!tagName || !tagName in speciesMeta) {
     return null
   }
   return (
@@ -69,7 +69,7 @@ export default ({
   )
 
   if (isLoading) {
-    return <LoadingIcon />
+    return <LoadingIndicator />
   }
 
   if (isErrored) {

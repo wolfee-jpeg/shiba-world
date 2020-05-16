@@ -1,8 +1,8 @@
 import React from 'react'
+import { Typography } from '@material-ui/core'
 import AssetOverview from '../asset-overview'
 import useDatabase from '../../hooks/useDatabase'
-import LoadingIndicator from '../loading'
-import { Typography } from '@material-ui/core'
+import LoadingIndicator from '../loading-indicator'
 
 export default () => {
   const [isFetching, isErrored, featuredAsset] = useDatabase(

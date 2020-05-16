@@ -1,16 +1,16 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles'
 import Markdown from 'react-markdown'
 import useDatabase from '../../hooks/useDatabase'
-import LoadingIcon from '../../components/loading'
-import { Grid, List, Typography, Button, Chip, Paper } from '@material-ui/core'
+import LoadingIndicator from '../../components/loading-indicator'
+import { Grid, Typography, Button, Chip, Paper } from '@material-ui/core'
 import FormattedDate from '../formatted-date'
-import CommentList from '../comment-list'
-import AddCommentForm from '../add-comment-form'
-import VotesList from '../votes-list'
-import AddVoteForm from '../add-vote-form'
-import FeatureListButton from '../feature-list-button'
+// import CommentList from '../comment-list'
+// import AddCommentForm from '../add-comment-form'
+// import VotesList from '../votes-list'
+// import AddVoteForm from '../add-vote-form'
+// import FeatureListButton from '../feature-list-button'
 import * as routes from '../../routes'
 import withAuthProfile from '../../hocs/withAuthProfile'
 
@@ -120,7 +120,7 @@ const SingleListView = ({ assetId, auth, small = false }) => {
   const [isLoading, isErrored, result] = useDatabase('assets', assetId)
 
   if (isLoading) {
-    return <LoadingIcon />
+    return <LoadingIndicator />
   }
 
   if (isErrored || result === null) {
