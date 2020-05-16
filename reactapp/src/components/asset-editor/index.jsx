@@ -151,7 +151,9 @@ export default ({
       <FormField
         label="Thumbnail URL"
         value={fieldData.thumbnailUrl}
-        hint="The URL of a thumbnail. Use the file upload form below to upload a new file."
+        hint={`Use the file upload below (it gives you a URL you can paste in here).
+
+Please crop your thumbnails to something like 300x300 (automatic cropping coming soon)`}
         onChange={newVal => onFieldChange('thumbnailUrl', newVal)}
       />
       <FormField
