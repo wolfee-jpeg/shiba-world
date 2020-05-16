@@ -1,10 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
+
 import { makeStyles } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
-import RecentAssets from '../../components/recent-assets'
-
 import { Link } from 'react-router-dom'
 import Card from '@material-ui/core/Card'
 import CardActionArea from '@material-ui/core/CardActionArea'
@@ -12,16 +11,10 @@ import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
 import CardMedia from '@material-ui/core/CardMedia'
 import Button from '@material-ui/core/Button'
-import * as routes from '../../routes'
 
-import shibaInuImageUrl from '../../assets/images/species/shiba_inu.jpg'
-import avaliImageUrl from '../../assets/images/species/avali.png'
-import bestBoiImageUrl from '../../assets/images/species/best_boi.png'
-import sergalImageUrl from '../../assets/images/species/sergal.png'
-import rexouiumImageUrl from '../../assets/images/species/rexouium.png'
-import kangarooImageUrl from '../../assets/images/species/kangaroo.png'
-import racoonImageUrl from '../../assets/images/species/racoon.png'
-import otherSpeciesImageUrl from '../../assets/images/species/other-species.png'
+import RecentAssets from '../../components/recent-assets'
+import * as routes from '../../routes'
+import speciesMeta from '../../species-meta'
 
 const useSpeciesStyles = makeStyles(theme => ({
   root: {
@@ -69,54 +62,17 @@ const SpeciesBrowser = () => (
   <>
     <h2>Species</h2>
     <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-      <Species
-        name="shiba"
-        title="Pikapetey Shiba"
-        description="Cute fucks"
-        imageUrl={shibaInuImageUrl}
-      />
-      <Species
-        name="avali"
-        title="Aioli"
-        description="Space chicken"
-        imageUrl={avaliImageUrl}
-      />
-      <Species
-        name="bestboi"
-        title="Best Boi"
-        description="The best of the bois"
-        imageUrl={bestBoiImageUrl}
-      />
-      <Species
-        name="sergal"
-        title="Sergal"
-        description="Wedge of cheese"
-        imageUrl={sergalImageUrl}
-      />
-      <Species
-        name="rexouium"
-        title="T-Rex"
-        description="King caretakers of my butt"
-        imageUrl={rexouiumImageUrl}
-      />
-      <Species
-        name="kangaroo"
-        title="Kanga"
-        description="I like their pouches UwU"
-        imageUrl={kangarooImageUrl}
-      />
-      <Species
-        name="racoon"
-        title="Racoon"
-        description="Trash pandas"
-        imageUrl={racoonImageUrl}
-      />
-      <Species
-        name="other"
-        title="Other species"
-        description="The other species that some people use"
-        imageUrl={otherSpeciesImageUrl}
-      />
+      {Object.entries(speciesMeta).map(
+        ([name, { name: title, shortDescription, thumbnailUrl }]) => (
+          <Species
+            key={name}
+            name={name}
+            title={title}
+            description={shortDescription}
+            imageUrl={thumbnailUrl}
+          />
+        )
+      )}
     </div>
   </>
 )

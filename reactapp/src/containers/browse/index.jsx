@@ -5,7 +5,7 @@ import Markdown from 'react-markdown'
 import useDatabase from '../../hooks/useDatabase'
 import LoadingIndicator from '../../components/loading-indicator'
 import AssetResults from '../../components/asset-results'
-import speciesMeta from './species-meta'
+import speciesMeta from '../../species-meta'
 import ErrorMessage from '../../components/error-message'
 import tags from '../../tags'
 
