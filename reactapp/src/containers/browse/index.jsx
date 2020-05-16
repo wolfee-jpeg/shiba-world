@@ -6,6 +6,8 @@ import useDatabase from '../../hooks/useDatabase'
 import LoadingIcon from '../../components/loading'
 import AssetResults from '../../components/asset-results'
 import speciesMeta from './species-meta'
+import ErrorMessage from '../../components/error-message'
+import tags from '../../tags'
 
 // function firstLetterUppercase(text) {
 //   return `${text.slice(0, 1).toUpperCase()}${text.slice(1)}`
@@ -33,6 +35,22 @@ function Description({ tagName }) {
   )
 }
 
+function splitResultsIntoFilesAndTutorials(results) {
+  return results.reduce(
+    (newObj, asset) => {
+      console.log(asset)
+      const isTutorial = asset.tags.includes(tags.tutorial)
+      return {
+        files: isTutorial ? newObj.files : newObj.files.concat(asset),
+        tutorials: isTutorial
+          ? newObj.tutorials.concat(asset)
+          : newObj.tutorials
+      }
+    },
+    { files: [], tutorials: [] }
+  )
+}
+
 export default ({
   match: {
     params: { tagName }
@@ -55,18 +73,22 @@ export default ({
   }
 
   if (isErrored) {
-    return 'Error!'
+    return <ErrorMessage>Failed to get assets by tag {tagName}</ErrorMessage>
   }
+
+  const { files, tutorials } = splitResultsIntoFilesAndTutorials(results)
 
   return (
     <>
       <Title tagName={tagName} />
       <Description tagName={tagName} />
-      <h2>Browse Assets</h2>
-      {!results || !results.length ? (
-        'No results'
+      <h2>Assets</h2>
+      {!files.length ? 'No assets found' : <AssetResults assets={files} />}
+      <h2>Tutorials</h2>
+      {!tutorials.length ? (
+        'No tutorials found'
       ) : (
-        <AssetResults assets={results} />
+        <AssetResults assets={tutorials} />
       )}
     </>
   )
