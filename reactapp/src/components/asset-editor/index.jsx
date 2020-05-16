@@ -1,11 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState, Fragment } from 'react'
 import Paper from '@material-ui/core/Paper'
 import TextField from '@material-ui/core/TextField'
 import FormControl from '@material-ui/core/FormControl'
 import Button from '@material-ui/core/Button'
+import Checkbox from '@material-ui/core/Checkbox'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
 import FileUploader from '../file-uploader'
 import tagList from '../../tags'
-import { Fragment } from 'react'
 
 const Hint = ({ children }) => (
   <div style={{ fontSize: '80%', color: 'grey' }}>{children}</div>
@@ -13,6 +14,7 @@ const Hint = ({ children }) => (
 
 const FormField = ({
   label,
+  type = 'text',
   value,
   hint,
   convertToValidField,
@@ -21,18 +23,30 @@ const FormField = ({
 }) => (
   <Paper style={{ margin: '0 0 1rem 0', padding: '2rem' }}>
     <FormControl fullWidth>
-      <TextField
-        label={label}
-        defaultValue={value || ''}
-        onChange={event =>
-          onChange(
-            convertToValidField
-              ? convertToValidField(event.target.value)
-              : event.target.value
-          )
-        }
-        {...textFieldProps}
-      />
+      {type === 'text' ? (
+        <TextField
+          label={label}
+          defaultValue={value || ''}
+          onChange={event =>
+            onChange(
+              convertToValidField
+                ? convertToValidField(event.target.value)
+                : event.target.value
+            )
+          }
+          {...textFieldProps}
+        />
+      ) : (
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={value}
+              onChange={event => onChange(event.target.checked)}
+            />
+          }
+          label={label}
+        />
+      )}
       <Hint>
         {hint.split('\n').map((hint, idx) => (
           <Fragment key={hint}>
@@ -58,7 +72,11 @@ const FileAttacherItem = ({ url, onRemove }) => (
 const FileAttacher = ({ fileUrls, onFileAttached, onFileRemoved }) => (
   <>
     {fileUrls.map(fileUrl => (
-      <FileAttacherItem url={fileUrl} onRemove={() => onFileRemoved(fileUrl)} />
+      <FileAttacherItem
+        key={fileUrl}
+        url={fileUrl}
+        onRemove={() => onFileRemoved(fileUrl)}
+      />
     ))}
     <Paper style={{ margin: '0 0 1rem 0', padding: '2rem' }}>
       <FileUploader
@@ -69,20 +87,25 @@ const FileAttacher = ({ fileUrls, onFileAttached, onFileRemoved }) => (
   </>
 )
 
+const isFormValid = (formFields, doesHavePermission) => {
+  if (!formFields.title) {
+    return false
+  }
+  if (!formFields.description) {
+    return false
+  }
+  if (!formFields.thumbnailUrl) {
+    return false
+  }
+  if (!doesHavePermission) {
+    return false
+  }
+  return true
+}
+
 export default ({
   assetId,
-  asset: {
-    id,
-    title,
-    description,
-    createdAt,
-    createdBy,
-    tags = [],
-    thumbnailUrl,
-    fileUrls = [],
-    modifiedAt,
-    modifiedBy
-  } = {},
+  asset: { title, description, tags = [], thumbnailUrl, fileUrls = [] } = {},
   onSubmit
 }) => {
   const [fieldData, setFieldData] = useState({
@@ -92,12 +115,20 @@ export default ({
     fileUrls,
     thumbnailUrl
   })
+  const [doesHavePermission, setDoesHavePermission] = useState(false)
 
   const onFieldChange = (fieldName, newVal) => {
     setFieldData({
       ...fieldData,
       [fieldName]: newVal
     })
+  }
+
+  const onFormSubmitted = () => {
+    if (!doesHavePermission) {
+      return
+    }
+    onSubmit(fieldData)
   }
 
   return (
@@ -119,7 +150,7 @@ export default ({
       <FormField
         label="Thumbnail URL"
         value={fieldData.thumbnailUrl}
-        hint="The URL of a thumbnail."
+        hint="The URL of a thumbnail. Use the file upload form below to upload a new file."
         onChange={newVal => onFieldChange('thumbnailUrl', newVal)}
       />
       <FormField
@@ -146,11 +177,19 @@ Eg. for collar tag it "collar", if it is colored blue tag it "blue", etc.`}
           )
         }
       />
+      <FormField
+        label="I have permission to upload this asset"
+        type="checkbox"
+        value={doesHavePermission}
+        hint="We don't want to steal content. If you want to share someone else's work, please link directly to their website or Discord message (not the file itself)."
+        onChange={newVal => setDoesHavePermission(newVal)}
+      />
       <div style={{ textAlign: 'center' }}>
         <Button
           variant="contained"
           color="primary"
-          onClick={() => onSubmit(fieldData)}>
+          onClick={onFormSubmitted}
+          disabled={!isFormValid(fieldData, doesHavePermission)}>
           {assetId ? 'Save' : 'Create'}
         </Button>
       </div>
