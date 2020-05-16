@@ -49,13 +49,13 @@ const navItems = [
     requiresNotAuth: true
   },
   {
-    label: 'Logout',
-    url: routes.logout,
-    requiresAuth: true
+    label: 'Sign Up',
+    url: routes.signUp,
+    requiresNotAuth: true
   },
   {
-    label: 'Admin',
-    url: routes.admin,
+    label: 'Logout',
+    url: routes.logout,
     requiresAuth: true
   }
 ]

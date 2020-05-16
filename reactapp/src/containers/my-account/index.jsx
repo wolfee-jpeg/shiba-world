@@ -1,13 +1,49 @@
 import React from 'react'
 import withRedirectOnNotAuth from '../../hocs/withRedirectOnNotAuth'
-import AccountSummary from '../../components/account-summary'
+import withAuthProfile from '../../hocs/withAuthProfile'
+import useDatabase from '../../hooks/useDatabase'
+import LoadingIndicator from '../../components/loading-indicator'
+import ErrorMessage from '../../components/error-message'
+import CreateProfileForm from '../../components/create-profile-form'
+import UsernameEditor from '../../components/username-editor'
 
-const MyAccount = () => (
-  <>
-    <h1>Your account</h1>
-    <hr />
-    <AccountSummary />
-  </>
-)
+const MyAccount = ({ auth }) => {
+  const [isLoading, isErrored, user] = useDatabase('users', auth.uid)
 
-export default withRedirectOnNotAuth(MyAccount)
+  if (isLoading) {
+    return <LoadingIndicator />
+  }
+
+  if (isErrored) {
+    return <ErrorMessage>Failed to retrieve your account details</ErrorMessage>
+  }
+
+  if (!user) {
+    return (
+      <>
+        <h1>Welcome to VRCArena</h1>
+        <p>
+          Thanks for signing up. Before you can start uploading assets and
+          interacting with the site, you need to be approved by an admin.
+        </p>
+        <h2>Step One</h2>
+        <p>Enter your profile info to get started:</p>
+        <CreateProfileForm userId={auth.uid} />
+        <h2>Step Two</h2>
+        <p>
+          To gain permission please message PeanutBuddha on Discord: Peanut#1756
+        </p>
+      </>
+    )
+  }
+
+  return (
+    <>
+      <h1>Your Account</h1>
+      Hi, {user.username}!<h2>Change your name</h2>
+      <UsernameEditor userId={user.id} record={user} />
+    </>
+  )
+}
+
+export default withRedirectOnNotAuth(withAuthProfile(MyAccount))

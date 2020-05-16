@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button'
 import useDatabaseSave from '../../hooks/useDatabaseSave'
 import { trackAction, actions } from '../../analytics'
 
-const UsernameEditor = ({ userId, record }) => {
+const UsernameEditor = ({ userId }) => {
   if (!userId) {
     return 'Need user ID to edit their username'
   }
@@ -29,6 +29,8 @@ const UsernameEditor = ({ userId, record }) => {
       Enter in your new name:{' '}
       <TextField onChange={event => setFieldValue(event.target.value)} /> <br />
       <Button
+        variant="contained"
+        color="primary"
         onClick={async () => {
           await save({
             username: fieldValue

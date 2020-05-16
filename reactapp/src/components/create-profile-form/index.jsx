@@ -2,10 +2,14 @@ import React, { useState } from 'react'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import useDatabaseSave from '../../hooks/useDatabaseSave'
+import ErrorMessage from '../error-message'
+import SuccessMessage from '../success-message'
+import LoadingIndicator from '../loading-indicator'
+import { FormControl } from '@material-ui/core'
 
 const CreateProfileForm = ({ userId }) => {
   if (!userId) {
-    return 'Need user ID to create profile'
+    return <ErrorMessage>Need user ID to create profile</ErrorMessage>
   }
 
   const [isCreating, isCreateSuccessOrFail, create] = useDatabaseSave(
@@ -15,27 +19,28 @@ const CreateProfileForm = ({ userId }) => {
   const [fieldValue, setFieldValue] = useState('')
 
   if (isCreating) {
-    return 'Creating your profile...'
+    return <LoadingIndicator message="Creating your profile..." />
   }
 
   if (isCreateSuccessOrFail === true) {
-    return 'Profile has been created successfully'
+    return (
+      <SuccessMessage>Profile has been created successfully</SuccessMessage>
+    )
   }
 
   if (isCreateSuccessOrFail === false) {
-    return 'Failed to create your profile. Probably a connection or permissions error'
+    return <ErrorMessage>Failed to create your profile</ErrorMessage>
   }
 
   return (
     <>
-      Your profile does not exist. You need a profile before you can become an
-      editor that can create lists and comment on other lists. Please enter your
-      name below and click Create to get started:
-      <br />
-      <TextField
-        value={fieldValue}
-        onChange={event => setFieldValue(event.target.value)}
-      />
+      <FormControl>
+        <TextField
+          value={fieldValue}
+          label="Username"
+          onChange={event => setFieldValue(event.target.value)}
+        />
+      </FormControl>
       <Button
         onClick={() =>
           create({

@@ -7,6 +7,7 @@ import * as routes from './routes'
 
 import Home from './containers/home'
 import Login from './containers/login'
+import SignUp from './containers/signup'
 import Logout from './containers/logout'
 import BrowseAssets from './containers/browse'
 import CreateAsset from './containers/create-asset'
@@ -60,6 +61,16 @@ const App = ({ searchTerm }) => (
                 title: 'Log in to manage assets',
                 description:
                   'Use the log in form to log in to your account so that you can manage assets.'
+              }}
+            />
+            <RouteWithMeta
+              exact
+              path={routes.signUp}
+              component={SignUp}
+              meta={{
+                title: 'Create a new account',
+                description:
+                  'Use the form below to create a new account to begin uploading new assets for VRChat species.'
               }}
             />
             <RouteWithMeta

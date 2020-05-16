@@ -9,15 +9,15 @@ import { trackAction, actions } from '../../analytics'
 
 const Login = ({ push }) => (
   <>
-    <h1>Login</h1>
-    <p>Enter your details below to login.</p>
+    <h1>Sign Up</h1>
+    <p>Enter your details below to create a new account.</p>
     <LoginForm
       onSuccess={auth => {
-        trackAction(actions.LOGIN, {
+        trackAction(actions.SIGNUP, {
           userId: auth.user ? auth.user.uid : 'unknown'
         })
 
-        push(routes.home)
+        push(routes.myAccount)
       }}
     />
     <p>
