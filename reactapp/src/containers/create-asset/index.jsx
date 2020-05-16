@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import useDatabaseSave from '../../hooks/useDatabaseSave'
 import useDatabaseDocument from '../../hooks/useDatabaseDocument'
 import withAuthProfile from '../../hocs/withAuthProfile'

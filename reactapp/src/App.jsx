@@ -16,6 +16,7 @@ import ViewAsset from './containers/view-asset'
 import MyAccount from './containers/my-account'
 import Admin from './containers/admin'
 import PrivacyPolicy from './containers/privacy-policy'
+import Contributors from './containers/contributors'
 
 import PageHeader from './components/header'
 import PageFooter from './components/footer'
@@ -161,6 +162,15 @@ const App = ({ searchTerm }) => (
                 title: 'Our privacy policy',
                 description:
                   'View the privacy policy of our website including what we do with your personal data.'
+              }}
+            />
+            <RouteWithMeta
+              exact
+              path={routes.contributors}
+              component={Contributors}
+              meta={{
+                title: 'People that have contributed',
+                description: 'Thanks!'
               }}
             />
           </Switch>

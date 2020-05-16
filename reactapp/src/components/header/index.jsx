@@ -57,6 +57,10 @@ const navItems = [
     label: 'Logout',
     url: routes.logout,
     requiresAuth: true
+  },
+  {
+    label: 'Contributors',
+    url: routes.contributors
   }
 ]
 
