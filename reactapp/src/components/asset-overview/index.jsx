@@ -81,9 +81,9 @@ const SingleListView = ({ assetId, auth, small = false }) => {
           {title}
         </Link>
       </Typography>
-      <Typography style={{ margin: '1rem 0' }} component="p">
+      <div style={{ fontSize: '90%', margin: '1rem 0' }}>
         <Markdown source={description} />
-      </Typography>
+      </div>
       <div>
         {tags
           ? tags.map(label => (
