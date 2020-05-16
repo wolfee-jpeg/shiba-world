@@ -50,7 +50,7 @@ Alternatively you can use the more optimized "Corpse Shiba" that is also availab
     thumbnailUrl: kangarooImageUrl
   },
   [species.racoon]: {
-    name: 'Racoon',
+    name: 'Racooon',
     description: ``,
     thumbnailUrl: racoonImageUrl
   },
