@@ -1,4 +1,4 @@
-import shibaInuImageUrl from './assets/images/species/shiba_inu.jpg'
+import shibaInuImageUrl from './assets/images/species/shiba_inu.png'
 import avaliImageUrl from './assets/images/species/avali.png'
 import bestBoiImageUrl from './assets/images/species/best_boi.png'
 import sergalImageUrl from './assets/images/species/sergal.png'
