@@ -13,8 +13,6 @@ export default () => {
     return new Promise((resolve, reject) => {
       var storageRef = firebase.storage().ref()
 
-      console.log('Uploading file...', file, uploadFullPath)
-
       setIsSuccess(false)
       setIsErrored(false)
 

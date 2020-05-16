@@ -1,10 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { makeStyles } from '@material-ui/core/styles'
 import Markdown from 'react-markdown'
 import useDatabase from '../../hooks/useDatabase'
 import LoadingIndicator from '../../components/loading-indicator'
-import { Grid, Typography, Button, Chip, Paper } from '@material-ui/core'
+import Typography from '@material-ui/core/Typography'
+import Button from '@material-ui/core/Button'
+import Chip from '@material-ui/core/Chip'
+import Paper from '@material-ui/core/Paper'
 import FormattedDate from '../formatted-date'
 // import CommentList from '../comment-list'
 // import AddCommentForm from '../add-comment-form'
@@ -14,75 +16,11 @@ import FormattedDate from '../formatted-date'
 import * as routes from '../../routes'
 import withAuthProfile from '../../hocs/withAuthProfile'
 
-const useCardRowStyles = makeStyles({
-  media: {},
-  listText: {
-    display: 'flex',
-    flexDirection: 'column',
-    minWidth: '200px',
-    padding: '2rem'
-  },
-  cardImage: {
-    maxWidth: '100%',
-    height: 'auto'
-  },
-  cardRanking: {
-    fontSize: '1.5rem',
-    lineHeight: '1'
-  },
-  cardRankingValue: {
-    fontSize: '3rem'
-  },
-  reason: {
-    margin: '2rem 0',
-    fontStyle: 'italic'
-  },
-  divider: {
-    marginTop: 'auto'
-  }
-})
-
-const CardRow = ({ ranking, imageUrl, cardName, reason }) => {
-  const classes = useCardRowStyles()
-
-  return (
-    <>
-      <Grid container>
-        <Grid item xs={6} lg={2} />
-        <Grid item xs={6} lg={10} style={{ padding: '1rem' }}>
-          <Typography
-            className={classes.cardRanking}
-            gutterBottom
-            component="p">
-            <span className={classes.cardRankingValue}>#{ranking}</span>
-          </Typography>
-          <Typography
-            gutterBottom
-            component="h2"
-            variant="h3"
-            style={{ fontSize: '1rem' }}>
-            {cardName}
-          </Typography>
-        </Grid>
-        <Grid item xs={12}>
-          {reason ? (
-            <Typography className={classes.reason} component="p" variant="h6">
-              {reason}
-            </Typography>
-          ) : (
-            ''
-          )}
-        </Grid>
-      </Grid>
-    </>
-  )
-}
-
 const isUrlAnImage = url =>
   url.indexOf('png') >= 0 || url.indexOf('jpg') >= 0 || url.indexOf('jpeg') >= 0
 
 const FileResultThumbnail = ({ url }) => {
-  return <img src={url} height={200} />
+  return <img src={url} height={200} alt="Thumbnail for file" />
 }
 
 const getFilenameFromUrl = url =>
@@ -102,7 +40,7 @@ const FileResult = ({ url }) => (
       <FileResultThumbnail url={url} />
     ) : (
       <Button>
-        <a href={url} target="_blank">
+        <a href={url} target="_blank" rel="noopener noreferrer">
           Download
         </a>
       </Button>
@@ -110,13 +48,7 @@ const FileResult = ({ url }) => (
   </Paper>
 )
 
-const useSingleListViewStyles = makeStyles({
-  media: {}
-})
-
 const SingleListView = ({ assetId, auth, small = false }) => {
-  const classes = useSingleListViewStyles()
-
   const [isLoading, isErrored, result] = useDatabase('assets', assetId)
 
   if (isLoading) {
@@ -141,7 +73,7 @@ const SingleListView = ({ assetId, auth, small = false }) => {
 
   return (
     <>
-      <img src={thumbnailUrl} height={300} />
+      <img src={thumbnailUrl} height={300} alt="The thumbnail for the asset." />
       <Typography
         variant="h1"
         style={{ fontSize: small ? '1.5rem' : '3rem', marginTop: '2rem' }}>

@@ -16,7 +16,7 @@ export const types = {
   SUCCESS: 'successs'
 }
 
-export default ({ children, type = type.INFO }) => {
+export default ({ children, type = types.INFO }) => {
   const classes = useStyles()
   return <Paper className={classes.paper}>{children}</Paper>
 }

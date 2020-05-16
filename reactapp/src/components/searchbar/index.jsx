@@ -13,7 +13,7 @@ const SearchBar = ({ searchTerm, changeSearchTerm }) => {
       margin: '1.5rem auto',
       display: 'flex',
       alignItems: 'center',
-      ['@media (min-width: 960px)']: {
+      '@media (min-width: 960px)': {
         margin: '0 auto'
       }
     },

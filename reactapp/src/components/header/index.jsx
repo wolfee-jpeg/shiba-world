@@ -66,13 +66,12 @@ const useStyles = makeStyles({
     borderBottom: '1px solid #260b36',
     marginBottom: '4rem',
     background: 'linear-gradient(20deg, #6e4a9e, #240b36)',
-    // boxShadow: '0 1px 3px rgba(0, 0, 0, 0.2)',
-    ['@media (min-width: 600px)']: {
+    '@media (min-width: 600px)': {
       padding: '2rem 2rem'
     }
   },
   gridColSearchbar: {
-    ['@media (max-width: 959px)']: {
+    '@media (max-width: 959px)': {
       order: '3'
     }
   },
@@ -85,7 +84,7 @@ const useStyles = makeStyles({
     display: 'block',
     padding: '1rem',
     textTransform: 'uppercase',
-    ['@media (min-width: 960px)']: {
+    '@media (min-width: 960px)': {
       padding: '1rem 0'
     }
   },
@@ -100,7 +99,6 @@ const useStyles = makeStyles({
   menuListLink: {
     color: 'inherit',
     textDecoration: 'none'
-    // todo: fix appearance if link in menu
   },
   listItemIcon: {
     color: '#240b36'

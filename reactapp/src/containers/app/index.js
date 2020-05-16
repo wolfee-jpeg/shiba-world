@@ -19,12 +19,12 @@ import SearchResults from '../../components/search-results'
 
 const RouteWithMeta = ({ meta, ...routeProps }) => {
   useEffect(() => {
-    document.title = `${meta.title} &mdash; VRC Arena`
+    document.title = `${meta.title} | VRC Arena`
 
     document
       .querySelector('meta[name="description"]')
       .setAttribute('content', meta.description)
-  }, [meta])
+  }, [meta.title, meta.description])
 
   return <Route {...routeProps} />
 }
@@ -44,9 +44,9 @@ const App = ({ searchTerm }) => (
               component={Home}
               meta={{
                 title:
-                  'Browse and upload assets for the different species of VRChat',
+                  'Browse and upload assets and tutorials for the different species of VRChat',
                 description:
-                  'Download and upload various kinds of assets for various species found in the online multiplayer VR social game VRChat.'
+                  'Download and upload various kinds of assets and tutorials for the different species found in the online multiplayer VR social game VRChat.'
               }}
             />
             <RouteWithMeta
@@ -74,9 +74,10 @@ const App = ({ searchTerm }) => (
               path={routes.browse}
               component={BrowseAssets}
               meta={{
-                title: 'Browse the assets',
+                title:
+                  'Browse all of the assets and tutorials that users have uploaded',
                 description:
-                  'All available assets are shown here so that you can browse them.'
+                  'All available assets are shown here so that you can browse them. Click an asset to view more info about it and to download the files.'
               }}
             />
             <RouteWithMeta
@@ -84,9 +85,9 @@ const App = ({ searchTerm }) => (
               path={routes.browseWithVar}
               component={BrowseAssets}
               meta={{
-                title: 'Browse the assets',
+                title: 'Browse the assets and tutorials by tag name',
                 description:
-                  'All available assets are shown here so that you can browse them.'
+                  'The assets and tutorials that users have uploaded except filtered by a specific tag name.'
               }}
             />
             <RouteWithMeta
@@ -95,7 +96,7 @@ const App = ({ searchTerm }) => (
               component={CreateAsset}
               meta={{
                 title: 'Upload a new asset',
-                description: 'A form that lets you upload a new asset.'
+                description: 'Create a new asset and upload the files for it.'
               }}
             />
             <RouteWithMeta
@@ -105,7 +106,8 @@ const App = ({ searchTerm }) => (
               // TODO: Use list title as page title
               meta={{
                 title: 'View a single asset',
-                description: 'This is a single asset..'
+                description:
+                  'An overview of a single asset. Find out what the asset is for, how to use it and where to download it plus more.'
               }}
             />
             <RouteWithMeta
@@ -114,7 +116,8 @@ const App = ({ searchTerm }) => (
               component={EditAsset}
               meta={{
                 title: 'Edit an asset',
-                description: 'This form lets you edit an asset.'
+                description:
+                  'Change the meta data about an asset and upload new files for it.'
               }}
             />
             <RouteWithMeta

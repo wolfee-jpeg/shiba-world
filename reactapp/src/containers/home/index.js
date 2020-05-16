@@ -65,8 +65,6 @@ const Species = ({ name, title, description, imageUrl }) => {
   )
 }
 
-console.log(shibaInuImageUrl)
-
 const SpeciesBrowser = () => (
   <>
     <h2>Species</h2>

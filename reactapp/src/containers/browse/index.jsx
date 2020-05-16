@@ -25,7 +25,7 @@ function Title({ tagName }) {
 
 function Description({ tagName }) {
   const classes = useStyles()
-  if (!tagName || !tagName in speciesMeta) {
+  if (!tagName || !speciesMeta[tagName]) {
     return null
   }
   return (
@@ -38,7 +38,6 @@ function Description({ tagName }) {
 function splitResultsIntoFilesAndTutorials(results) {
   return results.reduce(
     (newObj, asset) => {
-      console.log(asset)
       const isTutorial = asset.tags.includes(tags.tutorial)
       return {
         files: isTutorial ? newObj.files : newObj.files.concat(asset),

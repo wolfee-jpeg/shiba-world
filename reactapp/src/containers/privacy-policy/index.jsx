@@ -1,8 +1,7 @@
 import React from 'react'
-import { Container, Grid, Button } from '@material-ui/core'
-import ArrowBackIcon from '@material-ui/icons/ArrowBack'
+import { Container } from '@material-ui/core'
 
-const PrivacyPolicy = () => (
+export default () => (
   <>
     <Container maxWidth="md">
       <h1>Privacy Policy</h1>
@@ -215,5 +214,3 @@ const PrivacyPolicy = () => (
     </Container>
   </>
 )
-
-export default PrivacyPolicy

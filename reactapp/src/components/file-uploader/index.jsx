@@ -1,18 +1,11 @@
 import React, { useRef } from 'react'
 import Button from '@material-ui/core/Button'
-import Paper from '@material-ui/core/Paper'
 import { DropzoneArea } from 'material-ui-dropzone'
 import useFileUpload from '../../hooks/useFileUpload'
 
 export default ({ directoryPath = '', onDownloadUrl }) => {
   const uploadedFileRef = useRef()
-  const [
-    isUploading,
-    percentageDone,
-    downloadUrl,
-    isSuccess,
-    upload
-  ] = useFileUpload()
+  const [isUploading, percentageDone, , , upload] = useFileUpload()
 
   const onDropzoneAreaChange = files => {
     uploadedFileRef.current = files[0]
@@ -35,9 +28,9 @@ export default ({ directoryPath = '', onDownloadUrl }) => {
     }
   }
 
-  const onUploadAnotherClick = () => {
-    uploadedFileRef.current = null
-  }
+  // const onUploadAnotherClick = () => {
+  //   uploadedFileRef.current = null
+  // }
 
   if (uploadedFileRef.current && isUploading) {
     return `Uploading ${percentageDone}%`
