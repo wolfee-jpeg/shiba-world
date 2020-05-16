@@ -142,7 +142,7 @@ export default ({
       />
       <FormField
         label="Description"
-        value={description || ''}
+        value={fieldData.description}
         hint="A short paragraph that describes the asset."
         onChange={newVal => onFieldChange('description', newVal)}
         multiline

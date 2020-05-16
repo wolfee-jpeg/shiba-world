@@ -6,6 +6,8 @@ import useDatabase from '../../hooks/useDatabase'
 import useDatabaseSave from '../../hooks/useDatabaseSave'
 import LoadingIndicator from '../../components/loading-indicator'
 import ErrorMessage from '../../components/error-message'
+import SuccessMessage from '../../components/success-message'
+import { scrollToTop } from '../../utils'
 
 const EditAsset = ({ match: { params } }) => {
   const [isLoading, isErrored, asset] = useDatabase('assets', params.assetId)
@@ -19,7 +21,7 @@ const EditAsset = ({ match: { params } }) => {
     <>
       <h1>Edit Asset</h1>
       {wasSaveSuccessOrFail === true && (
-        <div style={{ padding: '2rem', textAlign: 'center' }}>Save success</div>
+        <SuccessMessage>Save success</SuccessMessage>
       )}
       {isLoading || isSaving ? (
         <LoadingIndicator />
@@ -32,6 +34,7 @@ const EditAsset = ({ match: { params } }) => {
           assetId={params.assetId}
           asset={newFields ? newFields : asset}
           onSubmit={fields => {
+            scrollToTop()
             save(fields)
             setNewFields(fields)
           }}
