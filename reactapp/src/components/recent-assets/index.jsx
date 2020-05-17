@@ -1,6 +1,4 @@
 import React from 'react'
-import { Typography } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
 import useDatabaseQuery, {
   Operators,
   CollectionNames,
@@ -25,8 +23,6 @@ export default () => {
     whereClauses.length ? whereClauses : undefined,
     5
   )
-
-  console.log('render', results)
 
   if (isLoading) {
     return <LoadingIndicator />

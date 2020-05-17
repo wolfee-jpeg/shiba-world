@@ -20,6 +20,7 @@
     "@material-ui/icons": "^4.0.1",
     "@redux-beacon/google-tag-manager": "^1.0.1",
     "@sentry/browser": "^5.5.0",
+    "algoliasearch": "^4.2.0",
     "connected-react-router": "^6.8.0",
     "firebase": "^6.1.0",
     "material-ui-dropzone": "^3.0.0",

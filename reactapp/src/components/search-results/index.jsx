@@ -1,38 +1,39 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import AssetResults from '../asset-results'
-import useDatabaseSearch from '../../hooks/useDatabaseSearch'
-import LoadingIndicator from '../../components/loading-indicator'
+import useAlgoliaSearch, { Indexes } from '../../hooks/useAlgoliaSearch'
+import useUserRecord from '../../hooks/useUserRecord'
+import LoadingIndicator from '../loading-indicator'
+import ErrorMessage from '../error-message'
+import SearchResult from '../search-result'
 
 const SearchResults = ({ searchTerm }) => {
-  const [isLoading, isErrored, results] = useDatabaseSearch('assets', [
-    {
-      fieldName: 'tags',
-      operator: 'array-contains',
-      value: searchTerm
-    }
-  ])
+  const [, , user] = useUserRecord()
 
-  if (isLoading) {
+  const [isLoading, isErrored, hits] = useAlgoliaSearch(
+    Indexes.Assets,
+    searchTerm,
+    user && user.enabledAdultContent ? undefined : 'isAdult != 1'
+  )
+
+  if (isLoading || !hits) {
     return <LoadingIndicator />
   }
 
   if (isErrored) {
-    return 'Error'
+    return <ErrorMessage>Failed to perform search</ErrorMessage>
   }
 
-  const searchTermChunks = searchTerm.split(' ')
-
-  // firebase doesn't let us do multiple array-contains so we must filter it ourselves
-  const filteredResults = results.filter(({ tags }) =>
-    searchTermChunks.every(chunk => tags.includes(chunk))
-  )
-
-  if (!filteredResults.length) {
+  if (!hits.length) {
     return <p>No assets found matching your search term</p>
   }
 
-  return <AssetResults assets={filteredResults} />
+  return (
+    <>
+      {hits.map(hit => (
+        <SearchResult key={hit.objectID} hit={hit} />
+      ))}
+    </>
+  )
 }
 
 const mapStateToProps = ({ app: { searchTerm } }) => ({ searchTerm })
