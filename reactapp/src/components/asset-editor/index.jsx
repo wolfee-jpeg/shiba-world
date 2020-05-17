@@ -5,6 +5,7 @@ import FormControl from '@material-ui/core/FormControl'
 import Button from '@material-ui/core/Button'
 import Checkbox from '@material-ui/core/Checkbox'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
+import shortid from 'shortid'
 import FileUploader from '../file-uploader'
 import tagList from '../../tags'
 
@@ -86,6 +87,7 @@ const FileAttacher = ({ fileUrls, onFileAttached, onFileRemoved }) => (
     <Paper style={{ margin: '0 0 1rem 0', padding: '2rem' }}>
       <FileUploader
         directoryPath="asset-uploads"
+        filePrefix={shortid.generate()}
         onDownloadUrl={url => onFileAttached(url)}
       />
     </Paper>

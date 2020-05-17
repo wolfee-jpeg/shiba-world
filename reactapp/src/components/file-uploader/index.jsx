@@ -3,7 +3,7 @@ import Button from '@material-ui/core/Button'
 import { DropzoneArea } from 'material-ui-dropzone'
 import useFileUpload from '../../hooks/useFileUpload'
 
-export default ({ directoryPath = '', onDownloadUrl }) => {
+export default ({ directoryPath = '', filePrefix = '', onDownloadUrl }) => {
   const uploadedFileRef = useRef()
   const [isUploading, percentageDone, , , upload] = useFileUpload()
 
@@ -19,7 +19,9 @@ export default ({ directoryPath = '', onDownloadUrl }) => {
     try {
       const url = await upload(
         uploadedFileRef.current,
-        `${directoryPath}/${uploadedFileRef.current.name}`
+        `${directoryPath}/${filePrefix ? `${filePrefix}___` : ''}${
+          uploadedFileRef.current.name
+        }`
       )
 
       onDownloadUrl(url)
