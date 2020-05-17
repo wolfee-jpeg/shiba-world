@@ -22,7 +22,8 @@ To download the Shiba avatar you must first donate $5 to Pikapetey's [Patreon](h
 Alternatively you can use the more optimized "Corpse Shiba" that is also available from the Pikapetey Discord by clicking [here](https://discordapp.com/channels/224293432498061313/595643494618365952/647970619719286785). It has:
 - more optimized model
 - bug fixes
-- wagging tail`,
+- wagging tail
+- floppy ears`,
     thumbnailUrl: shibaInuImageUrl
   },
   [species.Avali]: {
