@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
+import Button from '@material-ui/core/Button'
 import AssetEditor from '../../components/asset-editor'
 import withRedirectOnNotAuth from '../../hocs/withRedirectOnNotAuth'
 import withEditorsOnly from '../../hocs/withEditorsOnly'
@@ -8,6 +10,7 @@ import LoadingIndicator from '../../components/loading-indicator'
 import ErrorMessage from '../../components/error-message'
 import SuccessMessage from '../../components/success-message'
 import { scrollToTop } from '../../utils'
+import * as routes from '../../routes'
 
 const EditAsset = ({ match: { params } }) => {
   const [isLoading, isErrored, asset] = useDatabase('assets', params.assetId)
@@ -21,7 +24,14 @@ const EditAsset = ({ match: { params } }) => {
     <>
       <h1>Edit Asset</h1>
       {wasSaveSuccessOrFail === true && (
-        <SuccessMessage>Save success</SuccessMessage>
+        <SuccessMessage>
+          Save success
+          <br />
+          <Link
+            to={routes.viewAssetWithVar.replace(':assetId', params.assetId)}>
+            <Button variant="contained">View Asset</Button>
+          </Link>
+        </SuccessMessage>
       )}
       {isLoading || isSaving ? (
         <LoadingIndicator />
