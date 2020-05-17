@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import Markdown from 'react-markdown'
 import useDatabase from '../../hooks/useDatabase'
 import LoadingIndicator from '../../components/loading-indicator'
+import ErrorMessage from '../../components/error-message'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import Chip from '@material-ui/core/Chip'
@@ -20,7 +21,13 @@ const isUrlAnImage = url =>
   url.indexOf('png') >= 0 || url.indexOf('jpg') >= 0 || url.indexOf('jpeg') >= 0
 
 const FileResultThumbnail = ({ url }) => {
-  return <img src={url} height={200} alt="Thumbnail for file" />
+  return (
+    <img
+      src={url}
+      style={{ width: '100%', maxWidth: '500px', maxHeight: '500px' }}
+      alt="Thumbnail for file"
+    />
+  )
 }
 
 const getFilenameFromUrl = url =>
@@ -56,7 +63,7 @@ const SingleListView = ({ assetId, auth, small = false }) => {
   }
 
   if (isErrored || result === null) {
-    return 'Error!'
+    return <ErrorMessage>Failed to load asset</ErrorMessage>
   }
 
   const {
@@ -98,9 +105,11 @@ const SingleListView = ({ assetId, auth, small = false }) => {
       <Typography variant="h2" style={{ fontSize: '2rem', margin: '2rem 0' }}>
         Files
       </Typography>
-      {fileUrls.map(fileUrl => (
-        <FileResult key={fileUrl} url={fileUrl} />
-      ))}
+      {fileUrls
+        .filter(fileUrl => fileUrl !== thumbnailUrl)
+        .map(fileUrl => (
+          <FileResult key={fileUrl} url={fileUrl} />
+        ))}
       <br />
       <div>
         {small ? (
