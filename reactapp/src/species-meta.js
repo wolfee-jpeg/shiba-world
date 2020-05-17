@@ -69,7 +69,10 @@ Useful links:
     shortDescription: `A smooth, curvy anthro kangaroo.`,
     description: `An anthropomorphic kangaroo avatar created by [Spaghet](https://gumroad.com/spaghet_vr).
 
-Base model available for purchase [here](https://gumroad.com/l/TQmtwW).`,
+Base model available for purchase [here](https://gumroad.com/l/TQmtwW).
+
+Useful links:
+- [Kanga World](https://www.vrcw.net/world/detail/wrld_4366831d-ada2-4f68-8ab8-6df1d118e50c)`,
     thumbnailUrl: kangarooImageUrl
   },
   [species.racoon]: {
