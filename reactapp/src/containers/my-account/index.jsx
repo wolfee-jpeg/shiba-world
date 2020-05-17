@@ -6,6 +6,7 @@ import LoadingIndicator from '../../components/loading-indicator'
 import ErrorMessage from '../../components/error-message'
 import CreateProfileForm from '../../components/create-profile-form'
 import UsernameEditor from '../../components/username-editor'
+import AdultContentToggle from '../../components/adult-content-toggle'
 
 const MyAccount = ({ auth }) => {
   const [isLoading, isErrored, user] = useDatabase('users', auth.uid)
@@ -40,8 +41,11 @@ const MyAccount = ({ auth }) => {
   return (
     <>
       <h1>Your Account</h1>
-      Hi, {user.username}!<h2>Change your name</h2>
+      <p>Hi, {user.username}!</p>
+      <h2>Change your name</h2>
       <UsernameEditor userId={user.id} record={user} />
+      <h2>Profile settings</h2>
+      <AdultContentToggle />
     </>
   )
 }

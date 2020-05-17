@@ -12,9 +12,14 @@ const Hint = ({ children }) => (
   <div style={{ fontSize: '80%', color: 'grey' }}>{children}</div>
 )
 
+const formFieldType = {
+  text: 'text',
+  checkbox: 'checkbox'
+}
+
 const FormField = ({
   label,
-  type = 'text',
+  type = formFieldType.text,
   value,
   hint,
   convertToValidField,
@@ -23,7 +28,7 @@ const FormField = ({
 }) => (
   <Paper style={{ margin: '0 0 1rem 0', padding: '2rem' }}>
     <FormControl fullWidth>
-      {type === 'text' ? (
+      {type === formFieldType.text ? (
         <TextField
           label={label}
           value={value || ''}
@@ -105,7 +110,14 @@ const isFormValid = (formFields, doesHavePermission) => {
 
 export default ({
   assetId,
-  asset: { title, description, tags = [], thumbnailUrl, fileUrls = [] } = {},
+  asset: {
+    title,
+    description,
+    tags = [],
+    thumbnailUrl,
+    fileUrls = [],
+    isAdult
+  } = {},
   onSubmit
 }) => {
   const [fieldData, setFieldData] = useState({
@@ -113,7 +125,8 @@ export default ({
     description,
     tags,
     fileUrls,
-    thumbnailUrl
+    thumbnailUrl,
+    isAdult
   })
   const [doesHavePermission, setDoesHavePermission] = useState(false)
   const [showAdvancedFileUrls, setShowAdvancedFileUrls] = useState(false)
@@ -155,6 +168,13 @@ export default ({
 
 Please crop your thumbnails to something like 300x300 (automatic cropping coming soon)`}
         onChange={newVal => onFieldChange('thumbnailUrl', newVal)}
+      />
+      <FormField
+        label="Is adult content"
+        type={formFieldType.checkbox}
+        value={fieldData.isAdult}
+        hint={`If enabled it is hidden for everyone except logged in users who have opted-in.`}
+        onChange={newVal => onFieldChange('isAdult', newVal)}
       />
       <FormField
         label="Tags"

@@ -149,5 +149,5 @@ export default (
     getData()
   }, [])
 
-  return [isLoading, isErrored, results]
+  return [isLoading, isErrored, results, getData]
 }
