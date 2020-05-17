@@ -38,8 +38,13 @@ Useful links:
   },
   [species.BestBoi]: {
     name: 'Best Boi',
-    shortDescription: `A very fluffy anthropomorphic creature that is the best of the bois.`,
-    description: `A full description is coming soon. For now you can visit the [Best Boi Discord](https://discord.com/invite/sRrXpyZ) to get the latest models.`,
+    shortDescription: `A fox-like creature that is the best of the bois.`,
+    description: `The foxdragon is a fox-like creature that stands on their hind legs. They were created for VRChat.
+    
+Useful links:
+- [Model website](https://bestbois.com/page2.html)
+- [Best Boi Discord](https://discord.com/invite/sRrXpyZ)
+- [Best Boi VRChat world](https://vrchat.com/home/world/wrld_05be1d4a-72ae-489b-93bd-489d2b78abc5)`,
     thumbnailUrl: bestBoiImageUrl
   },
   [species.sergal]: {
