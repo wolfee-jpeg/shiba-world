@@ -90,19 +90,24 @@ const Home = ({ searchTerm }) => {
   return (
     <>
       {!searchTerm && (
-        <Paper className={classes.root}>
-          <Typography variant="h5" component="h3">
-            Welcome to VRC Arena
+        <>
+          <Paper className={classes.root}>
+            <Typography variant="h5" component="h3">
+              Welcome to VRC Arena
+            </Typography>
+            <Typography component="p" style={{ marginTop: '0.5rem' }}>
+              A repository of assets for the different species of the online
+              multiplayer social game VRChat. Get started by selecting your
+              favorite species below.
+            </Typography>
+          </Paper>
+          <SpeciesBrowser />
+          <Typography variant="h5" component="h4">
+            Recent Assets
           </Typography>
-          <Typography component="p" style={{ marginTop: '0.5rem' }}>
-            A repository of assets for the different species of the online
-            multiplayer social game VRChat. Get started by selecting your
-            favorite species below.
-          </Typography>
-        </Paper>
+          <RecentAssets />
+        </>
       )}
-      {!searchTerm && <SpeciesBrowser />}
-      {!searchTerm && <RecentAssets />}
     </>
   )
 }

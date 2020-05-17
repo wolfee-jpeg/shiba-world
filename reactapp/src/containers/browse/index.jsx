@@ -2,12 +2,17 @@ import React from 'react'
 import Paper from '@material-ui/core/Paper'
 import { makeStyles } from '@material-ui/core/styles'
 import Markdown from 'react-markdown'
-import useDatabase from '../../hooks/useDatabase'
+import useUserRecord from '../../hooks/useUserRecord'
 import LoadingIndicator from '../../components/loading-indicator'
 import AssetResults from '../../components/asset-results'
 import speciesMeta from '../../species-meta'
 import ErrorMessage from '../../components/error-message'
 import tags from '../../tags'
+import useDatabaseQuery, {
+  Operators,
+  CollectionNames,
+  AssetFieldNames
+} from '../../hooks/useDatabaseQuery'
 
 // function firstLetterUppercase(text) {
 //   return `${text.slice(0, 1).toUpperCase()}${text.slice(1)}`
@@ -61,16 +66,21 @@ export default ({
     params: { tagName }
   }
 }) => {
-  const [isLoading, isErrored, results] = useDatabase(
-    'assets',
-    null,
-    tagName
-      ? {
-          field: 'tags',
-          operator: 'array-contains',
-          value: tagName
-        }
-      : null
+  const [, , user] = useUserRecord()
+
+  const whereClauses = []
+
+  if (user && user.enabledAdultContent !== true) {
+    whereClauses.push([AssetFieldNames.isAdult, Operators.EQUALS, false])
+  }
+
+  if (tagName) {
+    whereClauses.push([AssetFieldNames.tags, Operators.ARRAY_CONTAINS, tagName])
+  }
+
+  const [isLoading, isErrored, results] = useDatabaseQuery(
+    CollectionNames.Assets,
+    whereClauses.length ? whereClauses : undefined
   )
 
   if (isLoading) {

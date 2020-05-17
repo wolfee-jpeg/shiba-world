@@ -1,20 +1,34 @@
 import React from 'react'
 import { Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import useDatabase from '../../hooks/useDatabase'
+import useDatabaseQuery, {
+  Operators,
+  CollectionNames,
+  AssetFieldNames
+} from '../../hooks/useDatabaseQuery'
+import useUserRecord from '../../hooks/useUserRecord'
 import LoadingIndicator from '../loading-indicator'
 import AssetResults from '../asset-results'
 import ErrorMessage from '../error-message'
 
-const useStyles = makeStyles(() => ({
-  title: { margin: '3rem 0', fontSize: '2rem', fontWeight: 'bold' }
-}))
-
 export default () => {
-  const [isFetching, isErrored, assets] = useDatabase('assets')
-  const classes = useStyles()
+  const [, , user] = useUserRecord()
 
-  if (isFetching) {
+  const whereClauses = []
+
+  if (user && user.enabledAdultContent !== true) {
+    whereClauses.push([AssetFieldNames.isAdult, Operators.EQUALS, false])
+  }
+
+  const [isLoading, isErrored, results] = useDatabaseQuery(
+    CollectionNames.Assets,
+    whereClauses.length ? whereClauses : undefined,
+    5
+  )
+
+  console.log('render', results)
+
+  if (isLoading) {
     return <LoadingIndicator />
   }
 
@@ -22,12 +36,5 @@ export default () => {
     return <ErrorMessage>Failed to get the assets</ErrorMessage>
   }
 
-  return (
-    <>
-      <Typography variant="h1" className={classes.title}>
-        Recent Assets
-      </Typography>
-      <AssetResults assets={assets} />
-    </>
-  )
+  return <AssetResults assets={results} />
 }

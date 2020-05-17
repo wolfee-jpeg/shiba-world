@@ -116,7 +116,7 @@ export default ({
     tags = [],
     thumbnailUrl,
     fileUrls = [],
-    isAdult
+    isAdult = false
   } = {},
   onSubmit
 }) => {
