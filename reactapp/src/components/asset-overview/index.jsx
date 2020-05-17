@@ -37,7 +37,9 @@ const getFilenameFromUrl = url =>
     .pop()
     .split('?')
     .shift()
-    .replace('%20', ' ')
+    .replace(/%20/g, ' ')
+    .split('___')
+    .pop()
 
 const FileResult = ({ url }) => (
   <Paper style={{ padding: '1rem', marginBottom: '1rem' }}>
