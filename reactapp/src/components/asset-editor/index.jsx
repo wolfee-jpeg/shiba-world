@@ -6,6 +6,7 @@ import Button from '@material-ui/core/Button'
 import Checkbox from '@material-ui/core/Checkbox'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import shortid from 'shortid'
+import Markdown from 'react-markdown'
 import FileUploader from '../file-uploader'
 import tagList from '../../tags'
 
@@ -132,6 +133,7 @@ export default ({
   })
   const [doesHavePermission, setDoesHavePermission] = useState(false)
   const [showAdvancedFileUrls, setShowAdvancedFileUrls] = useState(false)
+  const [showMarkdownPreview, setShowMarkdownPreview] = useState(false)
 
   const onFieldChange = (fieldName, newVal) => {
     setFieldData({
@@ -163,6 +165,20 @@ export default ({
         multiline
         rows={10}
       />
+      {showMarkdownPreview === false && (
+        <>
+          <Button
+            style={{ marginBottom: '0.5rem' }}
+            onClick={() => setShowMarkdownPreview(true)}>
+            Show Markdown preview
+          </Button>
+        </>
+      )}
+      {showMarkdownPreview && (
+        <div>
+          <Markdown source={fieldData.description} />
+        </div>
+      )}
       <FormField
         label="Thumbnail URL"
         value={fieldData.thumbnailUrl}
