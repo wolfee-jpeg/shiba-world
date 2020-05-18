@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import Markdown from 'react-markdown'
+import { makeStyles } from '@material-ui/core/styles'
 import useDatabase from '../../hooks/useDatabase'
 import LoadingIndicator from '../../components/loading-indicator'
 import ErrorMessage from '../../components/error-message'
@@ -57,8 +58,17 @@ const FileResult = ({ url }) => (
   </Paper>
 )
 
+const useStyles = makeStyles({
+  description: {
+    fontSize: '90%',
+    margin: '1rem 0',
+    '& A': { textDecoration: 'underline' }
+  }
+})
+
 const SingleListView = ({ assetId, auth, small = false }) => {
   const [isLoading, isErrored, result] = useDatabase('assets', assetId)
+  const classes = useStyles()
 
   if (isLoading) {
     return <LoadingIndicator />
@@ -90,7 +100,7 @@ const SingleListView = ({ assetId, auth, small = false }) => {
           {title}
         </Link>
       </Typography>
-      <div style={{ fontSize: '90%', margin: '1rem 0' }}>
+      <div className={classes.description}>
         <Markdown source={description} />
       </div>
       <div>
