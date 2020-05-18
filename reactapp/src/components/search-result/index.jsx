@@ -21,7 +21,7 @@ const useStyles = makeStyles({
   media: {
     width: 200,
     height: 200,
-    flex: '1 0 auto'
+    flex: 'none'
   },
   actions: {
     position: 'absolute',
