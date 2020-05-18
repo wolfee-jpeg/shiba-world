@@ -12,7 +12,7 @@ export default {
   [species.Shiba]: {
     name: 'Shiba Inu',
     shortDescription:
-      'A cute squishy anthropomorphic shibu inu avatar created by Pikapetey.',
+      'A cute squishy anthropomorphic shiba inu avatar created by Pikapetey.',
     description: `An anthropomorphic avatar created by [Pikapetey](https://www.patreon.com/pikapetey).
 
 To download the Shiba avatar you must first donate $5 to Pikapetey's [Patreon](https://www.patreon.com/pikapetey) then follow the link to join his Discord. From there you can check the #announcements channel for a link to the Unity asset and Substance Painter project.
