@@ -68,10 +68,17 @@ export default ({
 }) => {
   const [, , user] = useUserRecord()
 
-  const whereClauses = []
+  let whereClauses = [
+    [AssetFieldNames.isApproved, Operators.EQUALS, true],
+    [AssetFieldNames.isAdult, Operators.EQUALS, false]
+  ]
 
-  if (user && user.enabledAdultContent !== true) {
-    whereClauses.push([AssetFieldNames.isAdult, Operators.EQUALS, false])
+  // NSFW content is super risky and firebase doesnt have a != operator
+  // so default to adult content just to be sure
+  if (user && user.enabledAdultContent === true) {
+    whereClauses = whereClauses.filter(
+      ([fieldName]) => fieldName !== AssetFieldNames.isAdult
+    )
   }
 
   if (tagName) {

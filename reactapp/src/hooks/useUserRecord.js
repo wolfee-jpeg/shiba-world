@@ -6,8 +6,8 @@ export default () => {
 
   const [isLoading, isErrored, user] = useDatabaseQuery(
     CollectionNames.Users,
-    uid ? uid : undefined
+    uid ? uid : false
   )
 
-  return [isLoading, isErrored, user]
+  return [isLoading, isErrored, uid ? user : null]
 }

@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import Button from '@material-ui/core/Button'
 import AssetEditor from '../../components/asset-editor'
 import withRedirectOnNotAuth from '../../hocs/withRedirectOnNotAuth'
-import withEditorsOnly from '../../hocs/withEditorsOnly'
 import useDatabase from '../../hooks/useDatabase'
 import useDatabaseSave from '../../hooks/useDatabaseSave'
 import LoadingIndicator from '../../components/loading-indicator'
@@ -54,4 +53,4 @@ const EditAsset = ({ match: { params } }) => {
   )
 }
 
-export default withRedirectOnNotAuth(withEditorsOnly(EditAsset))
+export default withRedirectOnNotAuth(EditAsset)

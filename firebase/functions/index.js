@@ -18,16 +18,32 @@ function convertDocToAlgoliaRecord(docId, doc) {
   }
 }
 
-function insertDocIntoIndex(doc) {
+function insertDocIntoIndex(doc, docData) {
   return client
     .initIndex(ALGOLIA_INDEX_NAME)
-    .saveObject(convertDocToAlgoliaRecord(doc.id, doc.data()))
+    .saveObject(convertDocToAlgoliaRecord(doc.id, docData))
+}
+
+function isNotApproved(docData) {
+  return docData.isApproved === false
 }
 
 exports.onAssetCreated = functions.firestore
   .document('assets/{assetId}')
-  .onCreate((doc) => insertDocIntoIndex(doc))
+  .onCreate((doc) => {
+    const docData = doc.data()
+    if (isNotApproved(docData)) {
+      return
+    }
+    insertDocIntoIndex(doc, docData)
+  })
 
 exports.onAssetUpdated = functions.firestore
   .document('assets/{assetId}')
-  .onUpdate(({ after: doc }) => insertDocIntoIndex(doc))
+  .onUpdate(({ after: doc }) => {
+    const docData = doc.data()
+    if (isNotApproved(docData)) {
+      return
+    }
+    insertDocIntoIndex(doc, docData)
+  })

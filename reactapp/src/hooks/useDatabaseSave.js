@@ -6,6 +6,10 @@ export default (collectionName, documentId = null) => {
   const [isSaving, setIsSaving] = useState(false)
   const [isSuccess, setIsSuccess] = useState(null)
 
+  if (!collectionName) {
+    throw new Error('No collection name provided!')
+  }
+
   const save = async fields => {
     setIsSuccess(null)
     setIsSaving(true)

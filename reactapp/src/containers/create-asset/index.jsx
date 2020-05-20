@@ -6,7 +6,6 @@ import useDatabaseDocument from '../../hooks/useDatabaseDocument'
 import withAuthProfile from '../../hocs/withAuthProfile'
 import AssetEditor from '../../components/asset-editor'
 import withRedirectOnNotAuth from '../../hocs/withRedirectOnNotAuth'
-import withEditorsOnly from '../../hocs/withEditorsOnly'
 import LoadingIndicator from '../../components/loading-indicator'
 import SuccessMessage from '../../components/success-message'
 import { scrollToTop } from '../../utils'
@@ -43,6 +42,7 @@ const CreateAsset = ({ auth }) => {
           try {
             const [docId] = await save({
               ...newFields,
+              isApproved: false,
               createdAt: new Date(),
               createdBy: userDocument
             })
@@ -56,6 +56,4 @@ const CreateAsset = ({ auth }) => {
   )
 }
 
-export default withRedirectOnNotAuth(
-  withEditorsOnly(withAuthProfile(CreateAsset))
-)
+export default withRedirectOnNotAuth(withAuthProfile(CreateAsset))

@@ -13,6 +13,7 @@ export const CollectionNames = {
 
 export const AssetFieldNames = {
   isAdult: 'isAdult',
+  isApproved: 'isApproved',
   tags: 'tags'
 }
 

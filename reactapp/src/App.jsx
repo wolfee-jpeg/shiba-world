@@ -17,6 +17,7 @@ import MyAccount from './containers/my-account'
 import Admin from './containers/admin'
 import PrivacyPolicy from './containers/privacy-policy'
 import Contributors from './containers/contributors'
+import Unapproved from './containers/unapproved'
 
 import PageHeader from './components/header'
 import PageFooter from './components/footer'
@@ -171,6 +172,15 @@ const App = ({ searchTerm }) => (
               meta={{
                 title: 'People that have contributed',
                 description: 'Thanks!'
+              }}
+            />
+            <RouteWithMeta
+              exact
+              path={routes.unapproved}
+              component={Unapproved}
+              meta={{
+                title: 'Unapproved assets',
+                description: ''
               }}
             />
           </Switch>

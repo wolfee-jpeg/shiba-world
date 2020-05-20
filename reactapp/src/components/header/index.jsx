@@ -20,8 +20,8 @@ import {
 import MenuIcon from '@material-ui/icons/Menu'
 import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 import * as routes from '../../routes'
-import withAuthProfile from '../../hocs/withAuthProfile'
 import Searchbar from '../../components/searchbar'
+import useUserRecord from '../../hooks/useUserRecord'
 
 const navItems = [
   {
@@ -61,6 +61,11 @@ const navItems = [
   {
     label: 'Contributors',
     url: routes.contributors
+  },
+  {
+    label: 'Unapproved',
+    url: routes.unapproved,
+    requiresEditor: true
   }
 ]
 
@@ -119,9 +124,23 @@ const NavigationLink = props => {
   return <Link {...props} className={classes.menuItemLink} />
 }
 
-const DrawerContainer = withAuthProfile(({ auth, isMenuOpen, closeMenu }) => {
+function canShowMenuItem(menuItem, user) {
+  if (menuItem.requiresAuth && !user) {
+    return false
+  }
+  if (menuItem.requiresNotAuth && user) {
+    return false
+  }
+  if (menuItem.requiresEditor && (!user || user.isEditor !== true)) {
+    return false
+  }
+  return true
+}
+
+const DrawerContainer = ({ isMenuOpen, closeMenu }) => {
   const classes = useStyles()
-  const isLoggedIn = auth.isLoaded ? !!auth.uid : null
+  const [, , user] = useUserRecord()
+
   return (
     <Drawer anchor="right" open={isMenuOpen} onClose={() => closeMenu()}>
       <MenuList className={classes.menuList}>
@@ -129,9 +148,9 @@ const DrawerContainer = withAuthProfile(({ auth, isMenuOpen, closeMenu }) => {
       </MenuList>
       <Divider />
       <MenuList className={classes.menuList}>
-        {navItems.map(({ label, url, requiresAuth, requiresNotAuth }) =>
-          (requiresAuth === true && !isLoggedIn) ||
-          (requiresNotAuth === true && isLoggedIn) ? null : (
+        {navItems
+          .filter(navItem => canShowMenuItem(navItem, user))
+          .map(({ label, url }) => (
             <MenuItem button key={url} onClick={() => closeMenu()}>
               <NavigationLink
                 className={classes.menuListLink}
@@ -146,12 +165,11 @@ const DrawerContainer = withAuthProfile(({ auth, isMenuOpen, closeMenu }) => {
                 </Typography>
               </NavigationLink>
             </MenuItem>
-          )
-        )}
+          ))}
       </MenuList>
     </Drawer>
   )
-})
+}
 
 const PageHeader = ({ isMenuOpen, openMenu, closeMenu }) => {
   const classes = useStyles()

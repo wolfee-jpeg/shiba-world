@@ -12,10 +12,12 @@ import ErrorMessage from '../error-message'
 export default () => {
   const [, , user] = useUserRecord()
 
-  const whereClauses = []
+  let whereClauses = [[AssetFieldNames.isAdult, Operators.EQUALS, false]]
 
-  if (user && user.enabledAdultContent !== true) {
-    whereClauses.push([AssetFieldNames.isAdult, Operators.EQUALS, false])
+  // NSFW content is super risky and firebase doesnt have a != operator
+  // so default to adult content just to be sure
+  if (user && user.enabledAdultContent === true) {
+    whereClauses = []
   }
 
   const [isLoading, isErrored, results] = useDatabaseQuery(
@@ -29,7 +31,7 @@ export default () => {
   }
 
   if (isErrored) {
-    return <ErrorMessage>Failed to get the assets</ErrorMessage>
+    return <ErrorMessage>Failed to get recent assets</ErrorMessage>
   }
 
   return <AssetResults assets={results} showPrimaryTag={true} />

@@ -2,12 +2,12 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import Markdown from 'react-markdown'
 import { makeStyles } from '@material-ui/core/styles'
-import useDatabase from '../../hooks/useDatabase'
-import LoadingIndicator from '../../components/loading-indicator'
-import ErrorMessage from '../../components/error-message'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import Paper from '@material-ui/core/Paper'
+import useDatabase from '../../hooks/useDatabase'
+import LoadingIndicator from '../../components/loading-indicator'
+import ErrorMessage from '../../components/error-message'
 import FormattedDate from '../formatted-date'
 // import CommentList from '../comment-list'
 // import AddCommentForm from '../add-comment-form'
@@ -15,8 +15,8 @@ import FormattedDate from '../formatted-date'
 // import AddVoteForm from '../add-vote-form'
 // import FeatureListButton from '../feature-list-button'
 import * as routes from '../../routes'
-import withAuthProfile from '../../hocs/withAuthProfile'
 import TagChip from '../tag-chip'
+import useUserRecord from '../../hooks/useUserRecord'
 
 const isUrlAnImage = url =>
   url.indexOf('png') >= 0 || url.indexOf('jpg') >= 0 || url.indexOf('jpeg') >= 0
@@ -63,18 +63,40 @@ const useStyles = makeStyles({
     fontSize: '90%',
     margin: '1rem 0',
     '& A': { textDecoration: 'underline' }
+  },
+  notApprovedMessage: {
+    marginBottom: '2rem',
+    padding: '1rem'
   }
 })
 
-const SingleListView = ({ assetId, auth, small = false }) => {
+function NotApprovedMessage() {
+  const classes = useStyles()
+  return (
+    <Paper className={classes.notApprovedMessage}>
+      <strong>This asset has not been approved yet. It:</strong>
+      <ul>
+        <li>does not show up in search results</li>
+        <li>is not visible to logged out users</li>
+      </ul>
+    </Paper>
+  )
+}
+
+export default ({ assetId, small = false }) => {
   const [isLoading, isErrored, result] = useDatabase('assets', assetId)
   const classes = useStyles()
+  const [, , user] = useUserRecord()
 
   if (isLoading) {
     return <LoadingIndicator />
   }
 
-  if (isErrored || result === null) {
+  if (
+    isErrored ||
+    result === null ||
+    (!user && result && result.isApproved === false)
+  ) {
     return <ErrorMessage>Failed to load asset</ErrorMessage>
   }
 
@@ -86,12 +108,14 @@ const SingleListView = ({ assetId, auth, small = false }) => {
     tags,
     fileUrls,
     thumbnailUrl,
+    isApproved,
     modifiedAt,
     modifiedBy
   } = result
 
   return (
     <>
+      {isApproved === false && <NotApprovedMessage />}
       <img src={thumbnailUrl} height={300} alt="The thumbnail for the asset." />
       <Typography
         variant="h1"
@@ -122,7 +146,7 @@ const SingleListView = ({ assetId, auth, small = false }) => {
           <Link to={`/assets/${assetId}`}>
             <Button color="primary">View Asset</Button>
           </Link>
-        ) : auth && auth.uid === createdBy.id ? (
+        ) : user && user.id === createdBy.id ? (
           <Link to={`/assets/${assetId}/edit`}>
             <Button color="primary">Edit Asset</Button>
           </Link>
@@ -160,5 +184,3 @@ const SingleListView = ({ assetId, auth, small = false }) => {
     </>
   )
 }
-
-export default withAuthProfile(SingleListView)
