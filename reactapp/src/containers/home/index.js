@@ -102,7 +102,7 @@ const Home = ({ searchTerm }) => {
             </Typography>
           </Paper>
           <SpeciesBrowser />
-          <Typography variant="h5" component="h4">
+          <Typography variant="h5" component="h4" style={{ marginTop: '2rem' }}>
             Recent Assets
           </Typography>
           <RecentAssets />

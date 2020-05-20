@@ -32,5 +32,5 @@ export default () => {
     return <ErrorMessage>Failed to get the assets</ErrorMessage>
   }
 
-  return <AssetResults assets={results} />
+  return <AssetResults assets={results} showPrimaryTag={true} />
 }

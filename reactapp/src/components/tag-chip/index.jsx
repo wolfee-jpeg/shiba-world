@@ -8,11 +8,15 @@ const useStyles = makeStyles({
   chip: { marginRight: '0.25rem', cursor: 'pointer' }
 })
 
-export default ({ tagName }) => {
+export default ({ tagName, isFilled = true }) => {
   const classes = useStyles()
   return (
     <Link to={routes.browseWithVar.replace(':tagName', tagName)}>
-      <Chip className={classes.chip} label={tagName} color="primary" />
+      <Chip
+        className={classes.chip}
+        label={tagName}
+        color={isFilled ? 'primary' : undefined}
+      />
     </Link>
   )
 }
