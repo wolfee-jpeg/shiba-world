@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import { TwitterFollowButton } from 'react-twitter-embed'
 import {
   openMenu as openMenuAction,
   closeMenu as closeMenuAction
@@ -167,6 +168,7 @@ const DrawerContainer = ({ isMenuOpen, closeMenu }) => {
             </MenuItem>
           ))}
       </MenuList>
+      <TwitterFollowButton screenName="VRCArena" />
     </Drawer>
   )
 }
