@@ -14,6 +14,7 @@ function convertDocToAlgoliaRecord(docId, doc) {
     description: doc.description,
     thumbnailUrl: doc.thumbnailUrl,
     isAdult: doc.isAdult,
+    tags: doc.tags,
   }
 }
 
