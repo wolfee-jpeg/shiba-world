@@ -6,10 +6,9 @@ export default () => (
     <Container maxWidth="md">
       <h1>Privacy Policy</h1>
       <p>
-        Your privacy is important to us. It is MTG Card Rank's policy to respect
-        your privacy regarding any information we may collect from you across
-        our website,{' '}
-        <a href="https://www.mtgcardrank.com/">www.mtgcardrank.com</a>, and
+        Your privacy is important to us. It is our policy to respect your
+        privacy regarding any information we may collect from you across our
+        website, <a href="https://www.vrcarena.com/">www.vrcarena.com</a>, and
         other sites we own and operate.
       </p>
       <p>
@@ -46,13 +45,13 @@ export default () => (
         free to contact us.
       </p>
       <p>This policy is effective as of 1 July 2019.</p>
-      <h2>MTG Card Rank Terms of Service</h2>
+      <h2>VRC Arena Terms of Service</h2>
       <p>
         <strong>Terms</strong>
       </p>
       <p>
         By accessing the website at{' '}
-        <a href="https://www.mtgcardrank.com/">www.mtgcardrank.com</a>, you are
+        <a href="https://www.vrcarena.com/">www.vrcarena.com</a>, you are
         agreeing to be bound by these terms of service, all applicable laws and
         regulations, and agree that you are responsible for compliance with any
         applicable local laws. If you do not agree with any of these terms, you
@@ -66,7 +65,7 @@ export default () => (
       <ol type="a">
         <li>
           Permission is granted to temporarily download one copy of the
-          materials (information or software) on MTG Card Rank's website for
+          materials (information or software) on VRC Arena's website for
           personal, non-commercial transitory viewing only. This is the grant of
           a license, not a transfer of title, and under this license you may
           not:
@@ -78,7 +77,7 @@ export default () => (
             </li>
             <li>
               attempt to decompile or reverse engineer any software contained on
-              MTG Card Rank's website;
+              VRC Arena's website;
             </li>
             <li>
               remove any copyright or other proprietary notations from the
@@ -92,7 +91,7 @@ export default () => (
         </li>
         <li>
           This license shall automatically terminate if you violate any of these
-          restrictions and may be terminated by MTG Card Rank at any time. Upon
+          restrictions and may be terminated by VRC Arena at any time. Upon
           terminating your viewing of these materials or upon the termination of
           this license, you must destroy any downloaded materials in your
           possession whether in electronic or printed format.
@@ -103,15 +102,15 @@ export default () => (
       </p>
       <ol type="a">
         <li>
-          The materials on MTG Card Rank's website are provided on an 'as is'
-          basis. MTG Card Rank makes no warranties, expressed or implied, and
-          hereby disclaims and negates all other warranties including, without
+          The materials on VRC Arena's website are provided on an 'as is' basis.
+          VRC Arena makes no warranties, expressed or implied, and hereby
+          disclaims and negates all other warranties including, without
           limitation, implied warranties or conditions of merchantability,
           fitness for a particular purpose, or non-infringement of intellectual
           property or other violation of rights.
         </li>
         <li>
-          Further, MTG Card Rank does not warrant or make any representations
+          Further, VRC Arena does not warrant or make any representations
           concerning the accuracy, likely results, or reliability of the use of
           the materials on its website or otherwise relating to such materials
           or on any sites linked to this site.
@@ -126,10 +125,10 @@ export default () => (
         computer, and accesses each time you visit, so we can perform certain
         functions and understand how you use our site. If you do not wish to
         accept cookies from us, you should instruct your browser to refuse
-        cookies from mtgcardrank.com.
+        cookies from vrcarena.com.
       </p>
       <p>
-        MTG Card Rank is supported by{' '}
+        VRC Arena is supported by{' '}
         <a
           href="https://marketingplatform.google.com/about/analytics/terms/us/"
           title="Google Analytics Privacy policy">
@@ -157,43 +156,43 @@ export default () => (
         <strong>Limitations</strong>
       </p>
       <p>
-        In no event shall MTG Card Rank or its suppliers be liable for any
-        damages (including, without limitation, damages for loss of data or
-        profit, or due to business interruption) arising out of the use or
-        inability to use the materials on MTG Card Rank's website, even if MTG
-        Card Rank or a MTG Card Rank authorized representative has been notified
-        orally or in writing of the possibility of such damage. Because some
-        jurisdictions do not allow limitations on implied warranties, or
-        limitations of liability for consequential or incidental damages, these
-        limitations may not apply to you.
+        In no event shall VRC Arena or its suppliers be liable for any damages
+        (including, without limitation, damages for loss of data or profit, or
+        due to business interruption) arising out of the use or inability to use
+        the materials on VRC Arena's website, even if VRC Arena or a VRC Arena
+        authorized representative has been notified orally or in writing of the
+        possibility of such damage. Because some jurisdictions do not allow
+        limitations on implied warranties, or limitations of liability for
+        consequential or incidental damages, these limitations may not apply to
+        you.
       </p>
       <p>
         <strong>Accuracy of materials</strong>
       </p>
       <p>
-        The materials appearing on MTG Card Rank's website could include
-        technical, typographical, or photographic errors. MTG Card Rank does not
-        warrant that any of the materials on its website are accurate, complete
-        or current. MTG Card Rank may make changes to the materials contained on
-        its website at any time without notice. However MTG Card Rank does not
-        make any commitment to update the materials.
+        The materials appearing on VRC Arena's website could include technical,
+        typographical, or photographic errors. VRC Arena does not warrant that
+        any of the materials on its website are accurate, complete or current.
+        VRC Arena may make changes to the materials contained on its website at
+        any time without notice. However VRC Arena does not make any commitment
+        to update the materials.
       </p>
       <p>
         <strong>Links</strong>
       </p>
       <p>
-        MTG Card Rank has not reviewed all of the sites linked to its website
-        and is not responsible for the contents of any such linked site. The
-        inclusion of any link does not imply endorsement by MTG Card Rank of the
-        site. Use of any such linked website is at the user's own risk.
+        VRC Arena has not reviewed all of the sites linked to its website and is
+        not responsible for the contents of any such linked site. The inclusion
+        of any link does not imply endorsement by VRC Arena of the site. Use of
+        any such linked website is at the user's own risk.
       </p>
       <p>
         <strong>Modifications</strong>
       </p>
       <p>
-        MTG Card Rank may revise these terms of service for its website at any
-        time without notice. By using this website you are agreeing to be bound
-        by the then current version of these terms of service.
+        VRC Arena may revise these terms of service for its website at any time
+        without notice. By using this website you are agreeing to be bound by
+        the then current version of these terms of service.
       </p>
       <p>
         <strong>Governing Law</strong>
