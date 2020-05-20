@@ -7,7 +7,6 @@ import LoadingIndicator from '../../components/loading-indicator'
 import ErrorMessage from '../../components/error-message'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
-import Chip from '@material-ui/core/Chip'
 import Paper from '@material-ui/core/Paper'
 import FormattedDate from '../formatted-date'
 // import CommentList from '../comment-list'
@@ -17,6 +16,7 @@ import FormattedDate from '../formatted-date'
 // import FeatureListButton from '../feature-list-button'
 import * as routes from '../../routes'
 import withAuthProfile from '../../hocs/withAuthProfile'
+import TagChip from '../tag-chip'
 
 const isUrlAnImage = url =>
   url.indexOf('png') >= 0 || url.indexOf('jpg') >= 0 || url.indexOf('jpeg') >= 0
@@ -105,13 +105,7 @@ const SingleListView = ({ assetId, auth, small = false }) => {
       </div>
       <div>
         {tags
-          ? tags.map(label => (
-              <Chip
-                key={label}
-                label={label}
-                style={{ marginRight: '0.25rem' }}
-              />
-            ))
+          ? tags.map(tagName => <TagChip key={tagName} tagName={tagName} />)
           : '(no tags)'}
       </div>
       <Typography variant="h2" style={{ fontSize: '2rem', margin: '2rem 0' }}>
