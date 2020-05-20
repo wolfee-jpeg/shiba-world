@@ -17,7 +17,6 @@ const useStyles = makeStyles({
     width: 200,
     margin: '1rem',
     position: 'relative',
-    paddingBottom: '2rem'
   },
   media: {
     height: 200
@@ -85,11 +84,6 @@ export default function AssetItem({
           </CardContent>
         </Link>
       </CardActionArea>
-      <CardActions className={classes.actions}>
-        <Button size="small" color="primary">
-          <Link to={routes.viewAssetWithVar.replace(':assetId', id)}>View</Link>
-        </Button>
-      </CardActions>
     </Card>
   )
 }
