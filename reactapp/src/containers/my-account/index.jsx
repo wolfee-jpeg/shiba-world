@@ -25,15 +25,11 @@ const MyAccount = ({ auth }) => {
         <h1>Welcome to VRCArena</h1>
         <p>
           Thanks for signing up. Before you can start uploading assets and
-          interacting with the site, you need to be approved by an admin.
+          interacting with the site, you need a profile.
         </p>
-        <h2>Step One</h2>
         <p>Enter your profile info to get started:</p>
         <CreateProfileForm userId={auth.uid} />
-        <h2>Step Two</h2>
-        <p>
-          To gain permission please message PeanutBuddha on Discord: Peanut#1756
-        </p>
+        <p>Once done you can start uploading assets from the main menu.</p>
       </>
     )
   }
