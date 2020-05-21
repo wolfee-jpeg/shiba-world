@@ -25,7 +25,7 @@ const FileResultThumbnail = ({ url }) => {
   return (
     <img
       src={url}
-      style={{ width: '100%', maxWidth: '500px', maxHeight: '500px' }}
+      style={{ width: '100%', maxWidth: '500px' }}
       alt="Thumbnail for file"
     />
   )
@@ -83,6 +83,19 @@ function NotApprovedMessage() {
   )
 }
 
+function filterOnlyNonImageUrl(url) {
+  return !filterOnlyImagesUrl(url)
+}
+
+function filterOnlyImagesUrl(url) {
+  return (
+    url.includes('jpg') ||
+    url.includes('png') ||
+    url.includes('gif') ||
+    url.includes('jpeg')
+  )
+}
+
 export default ({ assetId, small = false }) => {
   const [isLoading, isErrored, result] = useDatabase('assets', assetId)
   const classes = useStyles()
@@ -136,6 +149,16 @@ export default ({ assetId, small = false }) => {
         Files
       </Typography>
       {fileUrls
+        .filter(filterOnlyNonImageUrl)
+        .filter(fileUrl => fileUrl !== thumbnailUrl)
+        .map(fileUrl => (
+          <FileResult key={fileUrl} url={fileUrl} />
+        ))}
+      <Typography variant="h2" style={{ fontSize: '2rem', margin: '2rem 0' }}>
+        Images
+      </Typography>
+      {fileUrls
+        .filter(filterOnlyImagesUrl)
         .filter(fileUrl => fileUrl !== thumbnailUrl)
         .map(fileUrl => (
           <FileResult key={fileUrl} url={fileUrl} />
