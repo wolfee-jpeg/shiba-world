@@ -1,0 +1,14 @@
+{
+  "name": "backup",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "backup": "GOOGLE_APPLICATION_CREDENTIALS=credentials.json firestore-export -p -b backups/full-backup.json"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "node-firestore-import-export": "^1.1.0"
+  }
+}
