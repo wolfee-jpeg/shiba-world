@@ -39,6 +39,16 @@ First generate credentials:
 4. Click Generate New Private Key
 5. Paste credentials.json into root of firebase/backup
 
-   cd firebase/backup
-   npm i
-   npm run backup
+Then run:
+
+    cd firebase/backup
+    npm i
+    npm run backup
+
+To backup just db:
+
+    npm run backup:db
+
+Or auth (users):
+
+    npm run backup:users
