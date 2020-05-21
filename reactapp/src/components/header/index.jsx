@@ -23,6 +23,19 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 import * as routes from '../../routes'
 import Searchbar from '../../components/searchbar'
 import useUserRecord from '../../hooks/useUserRecord'
+import useDatabaseQuery, {
+  CollectionNames,
+  AssetFieldNames,
+  Operators
+} from '../../hooks/useDatabaseQuery'
+
+// Use a component here to avoid unnecessary hook calls for non-editors
+function UnapprovedMenuItemLabel() {
+  const [, , results] = useDatabaseQuery(CollectionNames.Assets, [
+    [AssetFieldNames.isApproved, Operators.EQUALS, false]
+  ])
+  return `Unapproved (${results ? results.length : '-'})`
+}
 
 const navItems = [
   {
@@ -67,7 +80,7 @@ const navItems = [
     url: routes.contributors
   },
   {
-    label: 'Unapproved',
+    label: UnapprovedMenuItemLabel,
     url: routes.unapproved,
     requiresEditor: true
   }
@@ -168,6 +181,13 @@ function canShowMenuItem(menuItem, user) {
   return true
 }
 
+function getLabelForMenuItem(Label) {
+  if (typeof Label === 'string') {
+    return Label
+  }
+  return <Label />
+}
+
 const DrawerContainer = ({ user, isMenuOpen, closeMenu }) => {
   const classes = useStyles()
 
@@ -195,7 +215,7 @@ const DrawerContainer = ({ user, isMenuOpen, closeMenu }) => {
                   <ListItemIcon className={classes.listItemIcon}>
                     <ChevronRightIcon />
                   </ListItemIcon>
-                  {label}
+                  {getLabelForMenuItem(label)}
                 </Typography>
               </NavigationLink>
             </MenuItem>
@@ -213,8 +233,8 @@ function DesktopMenu({ user }) {
       {navItems
         .filter(navItem => canShowMenuItem(navItem, user))
         .map(({ label, url }) => (
-          <div className={classes.desktopMenuItem}>
-            <Link to={url}>{label}</Link>
+          <div key={url} className={classes.desktopMenuItem}>
+            <Link to={url}>{getLabelForMenuItem(label)}</Link>
           </div>
         ))}
     </div>
