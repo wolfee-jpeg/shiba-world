@@ -27,12 +27,15 @@ import useUserRecord from '../../hooks/useUserRecord'
 const navItems = [
   {
     label: 'Home',
-    url: routes.home,
-    icon: ''
+    url: routes.home
   },
   {
-    label: 'Browse',
-    url: routes.browse
+    label: 'Assets',
+    url: routes.browseAssets
+  },
+  {
+    label: 'Tutorials',
+    url: routes.browseTutorials
   },
   {
     label: 'Upload',

@@ -14,24 +14,27 @@ import useDatabaseQuery, {
   AssetFieldNames
 } from '../../hooks/useDatabaseQuery'
 
-// function firstLetterUppercase(text) {
-//   return `${text.slice(0, 1).toUpperCase()}${text.slice(1)}`
-// }
-
 const useStyles = makeStyles({
   root: {
     padding: '1rem'
   }
 })
 
+function getTitleTextForTagName(tagName) {
+  if (!tagName) {
+    return 'Assets'
+  }
+  if (tagName === tags.tutorial) {
+    return 'Tutorials'
+  }
+  if (speciesMeta[tagName]) {
+    return speciesMeta[tagName].name
+  }
+  return 'Browse'
+}
+
 function Title({ tagName }) {
-  return (
-    <h1>
-      {tagName && speciesMeta[tagName]
-        ? speciesMeta[tagName].name
-        : 'All Assets'}
-    </h1>
-  )
+  return <h1>{getTitleTextForTagName(tagName)}</h1>
 }
 
 function Description({ tagName }) {
@@ -43,6 +46,15 @@ function Description({ tagName }) {
     <Paper className={classes.root}>
       <Markdown>{speciesMeta[tagName].description}</Markdown>
     </Paper>
+  )
+}
+
+function Tutorials({ tutorials }) {
+  return (
+    <>
+      <h2>Tutorials</h2>
+      <AssetResults assets={tutorials} />
+    </>
   )
 }
 
@@ -98,20 +110,20 @@ export default ({
     return <ErrorMessage>Failed to get assets by tag {tagName}</ErrorMessage>
   }
 
+  const showTutorials = tagName && tagName !== tags.tutorial
+
   const { files, tutorials } = splitResultsIntoFilesAndTutorials(results)
 
   return (
     <>
       <Title tagName={tagName} />
       <Description tagName={tagName} />
-      <h2>Assets</h2>
-      {!files.length ? 'No assets found' : <AssetResults assets={files} />}
-      <h2>Tutorials</h2>
-      {!tutorials.length ? (
-        'No tutorials found'
+      {!results.length ? (
+        <ErrorMessage>None found</ErrorMessage>
       ) : (
-        <AssetResults assets={tutorials} />
+        <AssetResults assets={!showTutorials ? results : files} />
       )}
+      {showTutorials && <Tutorials tutorials={tutorials} />}
     </>
   )
 }

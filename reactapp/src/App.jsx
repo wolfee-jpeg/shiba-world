@@ -87,11 +87,10 @@ const App = ({ searchTerm }) => (
             />
             <RouteWithMeta
               exact
-              path={routes.browse}
+              path={routes.browseAssets}
               component={BrowseAssets}
               meta={{
-                title:
-                  'Browse all of the assets and tutorials that users have uploaded',
+                title: 'Browse all of the assets that users have uploaded',
                 description:
                   'All available assets are shown here so that you can browse them. Click an asset to view more info about it and to download the files.'
               }}
