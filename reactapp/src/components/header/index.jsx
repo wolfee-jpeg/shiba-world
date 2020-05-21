@@ -98,6 +98,11 @@ const useStyles = makeStyles({
       padding: '1rem 0'
     }
   },
+  menuToggleButton: {
+    '@media (min-width: 960px)': {
+      display: 'none'
+    }
+  },
   menuToggleIcon: {
     width: '4rem',
     height: '3rem',
@@ -117,6 +122,28 @@ const useStyles = makeStyles({
     display: 'block',
     width: '100%',
     height: '100%'
+  },
+  drawer: {
+    '@media (min-width: 960px)': {
+      display: 'none'
+    }
+  },
+  desktopMenu: {
+    marginTop: '1rem',
+    display: 'none',
+    '@media (min-width: 960px)': {
+      display: 'flex'
+    }
+  },
+  desktopMenuItem: {
+    color: '#FFF',
+    '& a': {
+      padding: '1rem',
+      color: 'inherit'
+    },
+    '&:first-child a': {
+      paddingLeft: '0'
+    }
   }
 })
 
@@ -138,12 +165,15 @@ function canShowMenuItem(menuItem, user) {
   return true
 }
 
-const DrawerContainer = ({ isMenuOpen, closeMenu }) => {
+const DrawerContainer = ({ user, isMenuOpen, closeMenu }) => {
   const classes = useStyles()
-  const [, , user] = useUserRecord()
 
   return (
-    <Drawer anchor="right" open={isMenuOpen} onClose={() => closeMenu()}>
+    <Drawer
+      className={classes.drawer}
+      anchor="right"
+      open={isMenuOpen}
+      onClose={() => closeMenu()}>
       <MenuList className={classes.menuList}>
         <MenuItem>VRC Arena</MenuItem>
       </MenuList>
@@ -173,8 +203,24 @@ const DrawerContainer = ({ isMenuOpen, closeMenu }) => {
   )
 }
 
+function DesktopMenu({ user }) {
+  const classes = useStyles()
+  return (
+    <div className={classes.desktopMenu}>
+      {navItems
+        .filter(navItem => canShowMenuItem(navItem, user))
+        .map(({ label, url }) => (
+          <div className={classes.desktopMenuItem}>
+            <Link to={url}>{label}</Link>
+          </div>
+        ))}
+    </div>
+  )
+}
+
 const PageHeader = ({ isMenuOpen, openMenu, closeMenu }) => {
   const classes = useStyles()
+  const [, , user] = useUserRecord()
 
   return (
     <header className={classes.header}>
@@ -193,14 +239,21 @@ const PageHeader = ({ isMenuOpen, openMenu, closeMenu }) => {
           align="center">
           <Searchbar />
         </Grid>
-        <Grid item xs={4} md={2} lg={4} align="right">
-          <Button onClick={() => openMenu()}>
+        <Grid item xs={4} align="right">
+          <Button
+            className={classes.menuToggleButton}
+            onClick={() => openMenu()}>
             <MenuIcon className={classes.menuToggleIcon} />
             <span hidden>Menu</span>
           </Button>
         </Grid>
       </Grid>
-      <DrawerContainer closeMenu={closeMenu} isMenuOpen={isMenuOpen} />
+      <DrawerContainer
+        user={user}
+        closeMenu={closeMenu}
+        isMenuOpen={isMenuOpen}
+      />
+      <DesktopMenu user={user} />
     </header>
   )
 }
