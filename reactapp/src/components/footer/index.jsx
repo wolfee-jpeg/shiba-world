@@ -17,11 +17,11 @@ const PageFooter = ({ auth }) => {
 
   return (
     <footer className={classes.footer} align="right" color="">
-      {!auth.isLoaded
-        ? null
-        : auth.uid
-        ? `You are logged in`
-        : 'You are not logged in'}
+      {!auth.isLoaded ? null : auth.uid ? (
+        <span title={auth.uid}>You are logged in</span>
+      ) : (
+        'You are not logged in'
+      )}
       <br />
       <Link to={routes.admin}>&copy;</Link> &ndash;{' '}
       <Link to={routes.privacyPolicy}>Privacy Policy</Link>

@@ -1,4 +1,5 @@
 const functions = require('firebase-functions')
+const admin = require('firebase-admin')
 const algoliasearch = require('algoliasearch')
 
 const ALGOLIA_APP_ID = functions.config().algolia.app_id
@@ -6,6 +7,9 @@ const ALGOLIA_ADMIN_KEY = functions.config().algolia.admin_api_key
 
 const ALGOLIA_INDEX_NAME = 'prod_ASSETS'
 const client = algoliasearch(ALGOLIA_APP_ID, ALGOLIA_ADMIN_KEY)
+
+admin.initializeApp()
+const db = admin.firestore()
 
 function convertDocToAlgoliaRecord(docId, doc) {
   return {
@@ -47,3 +51,13 @@ exports.onAssetUpdated = functions.firestore
     }
     insertDocIntoIndex(doc, docData)
   })
+
+exports.onUserSignup = functions.auth.user().onCreate((user) => {
+  const { uid } = user
+
+  db.collection('users').doc(uid).set({
+    isAdmin: false,
+    isEditor: false,
+    username: '',
+  })
+})

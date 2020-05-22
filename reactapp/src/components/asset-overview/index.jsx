@@ -43,21 +43,24 @@ const getFilenameFromUrl = url =>
     .split('___')
     .pop()
 
-const FileResult = ({ url }) => (
-  <Paper style={{ padding: '1rem', marginBottom: '1rem' }}>
-    {getFilenameFromUrl(url)}
-    <br />
-    {isUrlAnImage(url) ? (
-      <FileResultThumbnail url={url} />
-    ) : (
-      <Button>
-        <a href={url} target="_blank" rel="noopener noreferrer">
-          Download
-        </a>
-      </Button>
-    )}
-  </Paper>
-)
+const FileResult = ({ url }) => {
+  const classes = useStyles()
+  return (
+    <Paper style={{ padding: '1rem', marginBottom: '1rem' }}>
+      {getFilenameFromUrl(url)}
+      <br />
+      {isUrlAnImage(url) ? (
+        <FileResultThumbnail url={url} />
+      ) : (
+        <Button className={classes.downloadButton}>
+          <a href={url} target="_blank" rel="noopener noreferrer">
+            Download
+          </a>
+        </Button>
+      )}
+    </Paper>
+  )
+}
 
 const useStyles = makeStyles({
   description: {
@@ -68,6 +71,11 @@ const useStyles = makeStyles({
   notApprovedMessage: {
     marginBottom: '2rem',
     padding: '1rem'
+  },
+  downloadButton: {
+    '& a': {
+      color: 'inherit'
+    }
   }
 })
 

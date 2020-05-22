@@ -12,6 +12,12 @@ const Login = ({ push }) => (
   <>
     <Heading variant="h1">Sign Up</Heading>
     <p>Enter your details below to create a new account.</p>
+    <p>
+      <strong>
+        Please note that we do not use your first and last name anywhere on the
+        site but it is stored. You will set a username after you sign up.
+      </strong>
+    </p>
     <LoginForm
       onSuccess={auth => {
         trackAction(actions.SIGNUP, {

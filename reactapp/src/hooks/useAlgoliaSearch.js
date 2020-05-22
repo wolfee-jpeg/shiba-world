@@ -38,8 +38,6 @@ export default (indexName, keywords, filters = undefined) => {
             : {}
         )
 
-        console.log(hits)
-
         setResults(hits)
         setIsLoading(false)
         setIsErrored(false)
