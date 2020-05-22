@@ -145,7 +145,7 @@ const useStyles = makeStyles({
     }
   },
   desktopMenu: {
-    marginTop: '1rem',
+    marginTop: '2rem',
     display: 'none',
     '@media (min-width: 960px)': {
       display: 'flex'

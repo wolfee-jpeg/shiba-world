@@ -121,7 +121,7 @@ export default ({
       {!results.length ? (
         <ErrorMessage>None found</ErrorMessage>
       ) : (
-        <AssetResults assets={!showTutorials ? results : files} />
+        <AssetResults assets={!showTutorials ? files : results} />
       )}
       {showTutorials && <Tutorials tutorials={tutorials} />}
     </>
