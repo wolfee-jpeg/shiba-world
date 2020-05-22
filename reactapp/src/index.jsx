@@ -3,24 +3,25 @@ import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 import { ConnectedRouter } from 'connected-react-router'
 import firebase from 'firebase/app'
-// import * as Sentry from '@sentry/browser'
+import * as Sentry from '@sentry/browser'
 import { loggedInUserId } from './firebase'
 import ReactReduxFirebaseProvider from 'react-redux-firebase/lib/ReactReduxFirebaseProvider'
 import store, { history } from './store'
 import App from './App'
 import { trackAction, actions } from './analytics'
-// import { inDevelopment } from './environment'
+import { inDevelopment } from './environment'
 import { changeSearchTerm } from './modules/app'
 
 import 'sanitize.css/sanitize.css'
 import './assets/css/theme.css'
 import './assets/css/mana.min.css'
 
-// if (!inDevelopment()) {
-//   Sentry.init({
-//     dsn: 'https://eefc3e7e553546a0bf725a90f3048ae9@sentry.io/1509721'
-//   })
-// }
+if (!inDevelopment()) {
+  Sentry.init({
+    dsn:
+      'https://29d780084dd844fa9884a8b3ac50fc1e@o247075.ingest.sentry.io/5249930'
+  })
+}
 
 history.listen(location => {
   trackAction(actions.NAVIGATE, {
