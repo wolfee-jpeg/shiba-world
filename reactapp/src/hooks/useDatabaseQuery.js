@@ -186,22 +186,6 @@ export default (
         setIsLoading(false)
         setIsErrored(false)
       }
-
-      // const results = await queryChain.get()
-
-      // const numResults = results.docs.length
-
-      // if (isGettingSingleRecord && numResults !== 1) {
-      //   throw new Error(
-      //     `Expected single result when querying collection by id (${whereClauses}) - but got ${numResults} - where clause: ${whereClausesAsString}`
-      //   )
-      // }
-
-      // if (isGettingSingleRecord) {
-      //   setRecordOrRecords(await formatRawDoc(results))
-      // } else {
-      //   setRecordOrRecords(await formatRawDocs(results.docs))
-      // }
     } catch (err) {
       console.error(err)
       setIsLoading(false)
@@ -211,6 +195,7 @@ export default (
 
   useEffect(() => {
     if (whereClauses === false) {
+      setIsLoading(false)
       return
     }
 

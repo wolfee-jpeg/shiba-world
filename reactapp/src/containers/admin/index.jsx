@@ -1,121 +1,34 @@
-import React, { useState } from 'react'
-import TextField from '@material-ui/core/TextField'
-import Button from '@material-ui/core/Button'
-import { connect } from 'react-redux'
-import withRedirectOnNotAuth from '../../hocs/withRedirectOnNotAuth'
-import withAdminsOnly from '../../hocs/withAdminsOnly'
-import useDatabaseBackup from '../../hooks/useDatabaseBackup'
-import useDatabaseRestore from '../../hooks/useDatabaseRestore'
+import React from 'react'
 import AdminUserManagement from '../../components/admin-user-management'
 import Heading from '../../components/heading'
+import useUserRecord from '../../hooks/useUserRecord'
+import LoadingIndicator from '../../components/loading-indicator'
+import NoPermissionMessage from '../../components/no-permission-message'
+import ErrorMessage from '../../components/error-message'
 
-const mapStateToProps = ({ firebase: { auth } }) => ({ auth })
+export default () => {
+  const [isLoading, isErrored, user] = useUserRecord()
 
-const AdminInfo = connect(mapStateToProps)(({ auth }) => {
-  if (!auth) {
-    return 'Waiting for auth to provide your details...'
-  }
-
-  const { uid } = auth
-
-  return (
-    <ul>
-      <li>User ID: {uid}</li>
-    </ul>
-  )
-})
-
-const DatabaseBackup = () => {
-  const [textFieldValue, setTextFieldValue] = useState('lists')
-  const [collectionName, setCollectionName] = useState('')
-  const [isFetching, isErrored, , result] = useDatabaseBackup(collectionName)
-
-  if (isFetching) {
-    return 'Backing up collection...'
+  if (isLoading) {
+    return <LoadingIndicator />
   }
 
   if (isErrored) {
-    return 'Error backing up collection! Check console'
+    return <ErrorMessage />
+  }
+
+  if (!user || !user.isAdmin) {
+    return <NoPermissionMessage />
   }
 
   return (
     <>
-      <TextField
-        label="Collection name (eg. lists)"
-        value={textFieldValue || ''}
-        onChange={event => setTextFieldValue(event.target.value)}
-      />
-      <br />
-      Backup data:
-      <br />
-      <textarea value={result ? JSON.stringify(result) : ''} readOnly />
-      <br />
-      <Button onClick={() => setCollectionName(textFieldValue)}>
-        Perform Backup
-      </Button>
+      <Heading variant="h1">Admin</Heading>
+      <hr />
+      Your user ID: {user.id}
+      <hr />
+      <h2>Admin User Management</h2>
+      <AdminUserManagement />
     </>
   )
 }
-
-const DatabaseRestore = () => {
-  const [textFieldValue, setTextFieldValue] = useState('lists')
-  const [databaseRestoreValue, setDatabaseRestoreValue] = useState(null)
-  const [collectionName, setCollectionName] = useState('')
-  const [isFetching, isErrored, isSuccess] = useDatabaseRestore(
-    collectionName,
-    databaseRestoreValue
-  )
-
-  if (isFetching) {
-    return 'Restoring collection...'
-  }
-
-  if (isErrored) {
-    return 'Error restoring collection! Check console'
-  }
-
-  if (isSuccess) {
-    return 'Database restored successfully'
-  }
-
-  return (
-    <>
-      <TextField
-        label="Collection name (eg. lists)"
-        value={textFieldValue || ''}
-        onChange={event => setTextFieldValue(event.target.value)}
-      />
-      <br />
-      Data to restore:
-      <br />
-      <textarea
-        onChange={event => setDatabaseRestoreValue(event.target.value)}
-      />
-      <br />
-      <Button onClick={() => setCollectionName(textFieldValue)}>
-        Perform Restore
-      </Button>
-      <br />
-      Warning: This operation is permanent and cannot be reverted
-    </>
-  )
-}
-
-const Admin = () => (
-  <>
-    <Heading variant="h1">Admin</Heading>
-    <hr />
-    <AdminInfo />
-    <hr />
-    <h2>Database Backup</h2>
-    <DatabaseBackup />
-    <hr />
-    <h2>Database Restore</h2>
-    <DatabaseRestore />
-    <hr />
-    <h2>Admin User Management</h2>
-    <AdminUserManagement />
-  </>
-)
-
-export default connect(null)(withRedirectOnNotAuth(withAdminsOnly(Admin)))
