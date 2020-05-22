@@ -105,6 +105,19 @@ function filterOnlyImagesUrl(url) {
   )
 }
 
+function canEditAsset(currentUser, createdBy) {
+  if (!currentUser) {
+    return false
+  }
+  if (currentUser.id === createdBy.id) {
+    return true
+  }
+  if (currentUser.isEditor) {
+    return true
+  }
+  return false
+}
+
 function FileList({ fileUrls }) {
   if (!fileUrls.length) {
     return 'None found'
@@ -188,7 +201,7 @@ export default ({ assetId, small = false }) => {
           <Link to={`/assets/${assetId}`}>
             <Button color="primary">View Asset</Button>
           </Link>
-        ) : user && user.id === createdBy.id ? (
+        ) : canEditAsset(user, createdBy) ? (
           <Link to={`/assets/${assetId}/edit`}>
             <Button color="primary">Edit Asset</Button>
           </Link>

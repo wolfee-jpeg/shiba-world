@@ -8,7 +8,6 @@ import CardMedia from '@material-ui/core/CardMedia'
 import Typography from '@material-ui/core/Typography'
 import * as routes from '../../routes'
 import TagChip from '../tag-chip'
-import * as tagList from '../../tags'
 
 const useStyles = makeStyles({
   root: {
