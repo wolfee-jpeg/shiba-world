@@ -1,33 +1,46 @@
 import React, { useState } from 'react'
-import { connect } from 'react-redux'
 import { TextField, Button } from '@material-ui/core'
 import useDatabaseSave from '../../hooks/useDatabaseSave'
 import useDatabaseDocument from '../../hooks/useDatabaseDocument'
-import withEditorsOnly from '../../hocs/withEditorsOnly'
 import { trackAction, actions } from '../../analytics'
+import useUserRecord from '../../hooks/useUserRecord'
+import { CollectionNames } from '../../hooks/useDatabaseQuery'
+import ErrorMessage from '../error-message'
+import SuccessMessage from '../success-message'
+import LoadingIndicator from '../loading-indicator'
 
-const AddCommentForm = ({ assetId, auth }) => {
-  if (!auth.uid) {
-    return 'Not logged in - not good'
+export default ({ assetId }) => {
+  if (!assetId) {
+    throw new Error('No asset ID provided')
   }
 
-  const userId = auth.uid
-
   const [textFieldValue, setTextFieldValue] = useState('')
-  const [isSaving, didSaveSucceedOrFail, save] = useDatabaseSave('comments')
-  const [userDocument] = useDatabaseDocument('users', userId)
-  const [listDocument] = useDatabaseDocument('lists', assetId)
+  const [, , user] = useUserRecord()
+  const [isSaving, didSaveSucceedOrFail, save] = useDatabaseSave(
+    CollectionNames.Comments
+  )
+  const [userDocument] = useDatabaseDocument(
+    CollectionNames.Users,
+    user && user.id
+  )
+  const [assetDocument] = useDatabaseDocument(CollectionNames.Assets, assetId)
+
+  if (!user) {
+    return null
+  }
 
   if (isSaving) {
-    return 'Adding your comment...'
+    return <LoadingIndicator>Adding your comment...</LoadingIndicator>
   }
 
   if (didSaveSucceedOrFail === true) {
-    return 'Comment added!'
+    return <SuccessMessage>Added your comment successfully</SuccessMessage>
   }
 
   if (didSaveSucceedOrFail === false) {
-    return 'Error adding your comment. Please try again.'
+    return (
+      <ErrorMessage>Error adding your comment. Please try again.</ErrorMessage>
+    )
   }
 
   return (
@@ -41,15 +54,15 @@ const AddCommentForm = ({ assetId, auth }) => {
       <Button
         onClick={async () => {
           const [documentId] = await save({
-            list: listDocument,
+            parent: assetDocument,
             comment: textFieldValue,
             createdBy: userDocument,
             createdAt: new Date()
           })
 
-          trackAction(actions.COMMENT_ON_LIST, {
+          trackAction(actions.COMMENT_ON_ASSET, {
             assetId: documentId,
-            userId
+            userId: user.id
           })
         }}>
         Add
@@ -57,7 +70,3 @@ const AddCommentForm = ({ assetId, auth }) => {
     </>
   )
 }
-
-const mapStateToProps = ({ firebase: { auth } }) => ({ auth })
-
-export default withEditorsOnly(connect(mapStateToProps)(AddCommentForm))

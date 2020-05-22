@@ -3,12 +3,12 @@ import firebase from 'firebase/app'
 import 'firebase/firestore'
 
 export default (collectionName, documentId = null) => {
+  if (!collectionName) {
+    throw new Error('Cannot save to database: no collection name provided!')
+  }
+
   const [isSaving, setIsSaving] = useState(false)
   const [isSuccess, setIsSuccess] = useState(null)
-
-  if (!collectionName) {
-    throw new Error('No collection name provided!')
-  }
 
   const save = async fields => {
     setIsSuccess(null)

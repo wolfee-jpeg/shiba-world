@@ -9,8 +9,8 @@ import useDatabase from '../../hooks/useDatabase'
 import LoadingIndicator from '../../components/loading-indicator'
 import ErrorMessage from '../../components/error-message'
 import FormattedDate from '../formatted-date'
-// import CommentList from '../comment-list'
-// import AddCommentForm from '../add-comment-form'
+import CommentList from '../comment-list'
+import AddCommentForm from '../add-comment-form'
 // import VotesList from '../votes-list'
 // import AddVoteForm from '../add-vote-form'
 // import FeatureListButton from '../feature-list-button'
@@ -181,25 +181,10 @@ export default ({ assetId, small = false }) => {
           {modifiedBy ? modifiedBy.username : '(unknown)'}
         </Typography>
       )}
-      {/* {!small && (
-        <>
-          <FeatureListButton assetId={assetId} />
-          <Grid container>
-            <Grid item xs={6}>
-              <h2>Comments</h2>
-              <CommentList assetId={assetId} />
-              <h3>Add Comment</h3>
-              <AddCommentForm assetId={assetId} />
-            </Grid>
-            <Grid item xs={6}>
-              <h2>Votes</h2>
-              <VotesList assetId={assetId} />
-              <h3>Add Vote</h3>
-              <AddVoteForm assetId={assetId} />
-            </Grid>
-          </Grid>
-        </>
-      )} */}
+      <Heading variant="h2">Comments</Heading>
+      <CommentList assetId={assetId} />
+      <Heading variant="h3">Add Comment</Heading>
+      <AddCommentForm assetId={assetId} />
     </>
   )
 }

@@ -1,28 +1,35 @@
 import React from 'react'
 import Comment from '../comment'
-import useDatabase from '../../hooks/useDatabase'
 import LoadingIndicator from '../loading-indicator'
+import useDatabaseQuery, {
+  CollectionNames,
+  CommentFieldNames,
+  Operators
+} from '../../hooks/useDatabaseQuery'
+import ErrorMessage from '../error-message'
+import useDatabaseDocument from '../../hooks/useDatabaseDocument'
 
-const CommentList = ({ listId }) => {
-  const [isLoading, isErrored, comments] = useDatabase('comments', null, {
-    field: 'list',
-    operator: '==',
-    reference: {
-      collection: 'lists',
-      id: listId
-    }
-  })
+export default ({ assetId }) => {
+  if (!assetId) {
+    throw new Error('Cannot render comment list: no asset ID')
+  }
+
+  const [parentDoc] = useDatabaseDocument(CollectionNames.Assets, assetId)
+  const [isLoading, isErrored, comments] = useDatabaseQuery(
+    CollectionNames.Comments,
+    [[CommentFieldNames.parent, Operators.EQUALS, parentDoc]]
+  )
 
   if (isLoading) {
     return <LoadingIndicator />
   }
 
   if (isErrored) {
-    return 'Failed to load comments for this list'
+    return <ErrorMessage>Failed to load comments</ErrorMessage>
   }
 
   if (!comments.length) {
-    return 'No comments found'
+    return 'No comments found :('
   }
 
   return (
@@ -33,5 +40,3 @@ const CommentList = ({ listId }) => {
     </>
   )
 }
-
-export default CommentList

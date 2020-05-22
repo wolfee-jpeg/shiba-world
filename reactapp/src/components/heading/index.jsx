@@ -2,9 +2,22 @@ import React from 'react'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 
+function getFontSizeForVariant(variant) {
+  switch (variant) {
+    case 'h1':
+      return '3rem'
+    case 'h2':
+      return '1.5rem'
+    case 'h3':
+      return '1.25rem'
+    default:
+      return '1rem'
+  }
+}
+
 const useStyles = makeStyles({
   heading: ({ variant }) => ({
-    fontSize: variant === 'h1' ? '3rem' : '1.5rem',
+    fontSize: getFontSizeForVariant(variant),
     margin: '2rem 0 1rem'
   })
 })

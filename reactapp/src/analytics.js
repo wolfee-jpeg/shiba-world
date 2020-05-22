@@ -22,12 +22,10 @@ export const actions = {
   FOCUS_SEARCH: 'FocusSearch',
   CHANGE_SEARCH_TERM: 'ChangeSearchTerm',
 
-  // LISTS
-  CREATE_LIST: 'CreateList',
-  EDIT_LIST: 'EditList',
-  VOTE_ON_LIST: 'VoteOnList',
-  COMMENT_ON_LIST: 'CommentOnList',
+  // ASSETS
+  COMMENT_ON_ASSET: 'CommentOnAsset',
 
+  // ACCOUNT
   TOGGLE_ENABLED_ADULT_CONTENT: 'ToggleEnabledAdultContent'
 }
 

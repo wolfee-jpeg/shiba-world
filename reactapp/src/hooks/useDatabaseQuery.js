@@ -13,7 +13,8 @@ export const OrderDirections = {
 
 export const CollectionNames = {
   Users: 'users',
-  Assets: 'assets'
+  Assets: 'assets',
+  Comments: 'comments'
 }
 
 export const AssetFieldNames = {
@@ -21,6 +22,10 @@ export const AssetFieldNames = {
   isApproved: 'isApproved',
   tags: 'tags',
   createdAt: 'createdAt'
+}
+
+export const CommentFieldNames = {
+  parent: 'parent'
 }
 
 function getWhereClausesAsString(whereClauses) {
