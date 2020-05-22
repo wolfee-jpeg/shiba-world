@@ -26,7 +26,9 @@ export const actions = {
   CREATE_LIST: 'CreateList',
   EDIT_LIST: 'EditList',
   VOTE_ON_LIST: 'VoteOnList',
-  COMMENT_ON_LIST: 'CommentOnList'
+  COMMENT_ON_LIST: 'CommentOnList',
+
+  TOGGLE_ENABLED_ADULT_CONTENT: 'ToggleEnabledAdultContent'
 }
 
 const actionDetails = {

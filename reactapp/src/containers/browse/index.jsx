@@ -96,8 +96,7 @@ function TagBrowser({ assets, filterOutTag }) {
 export default ({
   match: {
     params: { tagName }
-  },
-  definitelyShowTutorials
+  }
 }) => {
   const [, , user] = useUserRecord()
 

@@ -7,6 +7,7 @@ import withAuthProfile from '../../hocs/withAuthProfile'
 import LoadingIndicator from '../loading-indicator'
 import ErrorMessage from '../error-message'
 import useDatabaseSave from '../../hooks/useDatabaseSave'
+import { trackAction, actions } from '../../analytics'
 
 export default withAuthProfile(({ auth }) => {
   const userId = auth.uid
@@ -43,10 +44,21 @@ export default withAuthProfile(({ auth }) => {
             checked={user.enabledAdultContent}
             onChange={async event => {
               const newSettingValue = event.target.checked
-              await save({
-                enabledAdultContent: newSettingValue
-              })
-              forceRefreshUser()
+
+              try {
+                await save({
+                  enabledAdultContent: newSettingValue
+                })
+
+                forceRefreshUser()
+
+                trackAction(actions.TOGGLE_ENABLED_ADULT_CONTENT, {
+                  newValue: newSettingValue,
+                  userId
+                })
+              } catch (err) {
+                console.error('Failed to save user to toggle adult flag', err)
+              }
             }}
           />
         }
