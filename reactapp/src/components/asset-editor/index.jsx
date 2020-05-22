@@ -231,9 +231,16 @@ Please crop your thumbnails to something like 300x300 (automatic cropping coming
           label="Tags"
           value={fieldData.tags.join('\n')}
           hint={`A list of tags (one per line) to describe your asset.
+
 Used for categories. Categories: ${Object.values(tagList).join(', ')}.
-Your asset can belong to multiple categories.
-Eg. for collar tag it "collar", if it is colored blue tag it "blue", etc.`}
+
+The first tag should be your category.
+
+The second tag should be the primary one - eg. "clothing" or "collar" or whatever.
+
+Other tags can then be listed.
+
+Note: Your asset can belong to multiple categories but the primary category should be 1st.`}
           onChange={newVal => onFieldChange('tags', newVal)}
           convertToValidField={text => text.split('\n')}
           multiline

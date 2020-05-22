@@ -40,20 +40,15 @@ function getPrimaryTag(tags) {
   if (!tags) {
     return null
   }
-  if (tags.includes(tagList.common.tutorial)) {
-    return tagList.common.tutorial
+  if (tags.length >= 2) {
+    return tags[1]
   }
-  const speciesValues = Object.values(tagList.species)
-  const speciesTag = tags.filter(tagName => speciesValues.includes(tagName))
-  if (speciesTag.length) {
-    return speciesTag[0]
-  }
-  return null
+  return tags[0]
 }
 
 export default function AssetItem({
   asset: { id, title, description, thumbnailUrl, tags },
-  showPrimaryTag = false
+  showPrimaryTag = true
 }) {
   const classes = useStyles()
   const primaryTag = getPrimaryTag(tags)
