@@ -1,6 +1,4 @@
 import React from 'react'
-import { connect } from 'react-redux'
-
 import { makeStyles } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
@@ -12,10 +10,11 @@ import CardContent from '@material-ui/core/CardContent'
 import CardMedia from '@material-ui/core/CardMedia'
 import Button from '@material-ui/core/Button'
 
-// import RecentAssets from '../../components/recent-assets'
+import RecentAssets from '../../components/recent-assets'
 import Heading from '../../components/heading'
 import * as routes from '../../routes'
 import speciesMeta from '../../species-meta'
+import useSearchTerm from '../../hooks/useSearchTerm'
 
 const useSpeciesStyles = makeStyles({
   root: {
@@ -85,32 +84,29 @@ const useViewStyles = makeStyles(theme => ({
   }
 }))
 
-const Home = ({ searchTerm }) => {
+export default () => {
+  const searchTerm = useSearchTerm()
   const classes = useViewStyles()
+
+  if (searchTerm) {
+    return null
+  }
 
   return (
     <>
-      {!searchTerm && (
-        <>
-          <Paper className={classes.root}>
-            <Typography variant="h5" component="h3">
-              Welcome to VRC Arena
-            </Typography>
-            <Typography component="p" style={{ marginTop: '0.5rem' }}>
-              A repository of assets for the different species of the online
-              multiplayer social game VRChat. Get started by selecting your
-              favorite species below.
-            </Typography>
-          </Paper>
-          <SpeciesBrowser />
-          <Heading variant="h2">Recent Assets</Heading>
-          {/* <RecentAssets /> */}
-        </>
-      )}
+      <Paper className={classes.root}>
+        <Typography variant="h5" component="h3">
+          Welcome to VRC Arena
+        </Typography>
+        <Typography component="p" style={{ marginTop: '0.5rem' }}>
+          A repository of assets for the different species of the online
+          multiplayer social game VRChat. Get started by selecting your favorite
+          species below.
+        </Typography>
+      </Paper>
+      <SpeciesBrowser />
+      <Heading variant="h2">Recent Assets</Heading>
+      <RecentAssets />
     </>
   )
 }
-
-const mapStateToProps = ({ app: { searchTerm } }) => ({ searchTerm })
-
-export default connect(mapStateToProps)(Home)

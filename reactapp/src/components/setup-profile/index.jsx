@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
 import TextField from '@material-ui/core/TextField'
 import FormControl from '@material-ui/core/FormControl'
 import useDatabaseSave from '../../hooks/useDatabaseSave'
 import useUserRecord from '../../hooks/useUserRecord'
+import useFirebaseUserId from '../../hooks/useFirebaseUserId'
 import ErrorMessage from '../error-message'
 import SuccessMessage from '../success-message'
 import LoadingIndicator from '../loading-indicator'
@@ -11,7 +11,7 @@ import Button from '../button'
 import Heading from '../heading'
 
 export default () => {
-  const { uid } = useSelector(({ firebase: { auth } }) => auth)
+  const uid = useFirebaseUserId()
   const [, , user] = useUserRecord()
   const userId = user ? user.id : null
   const [isCreating, isCreateSuccessOrFail, create] = useDatabaseSave(

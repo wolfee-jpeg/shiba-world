@@ -1,8 +1,8 @@
-import { useSelector } from 'react-redux'
 import useDatabaseQuery, { CollectionNames } from './useDatabaseQuery'
+import useFirebaseUserId from './useFirebaseUserId'
 
 export default () => {
-  const { uid } = useSelector(({ firebase: { auth } }) => auth)
+  const uid = useFirebaseUserId()
 
   const [isLoading, isErrored, user] = useDatabaseQuery(
     CollectionNames.Users,

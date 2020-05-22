@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { Route, Switch } from 'react-router-dom'
 import { Container } from '@material-ui/core'
-import { useSelector } from 'react-redux'
 
 import * as routes from './routes'
 
@@ -25,6 +24,7 @@ import PageFooter from './components/footer'
 import SearchResults from './components/search-results'
 import useUserRecord from './hooks/useUserRecord'
 import SetupProfile from './components/setup-profile'
+import useSearchTerm from './hooks/useSearchTerm'
 
 const RouteWithMeta = ({ meta, ...routeProps }) => {
   useEffect(() => {
@@ -39,7 +39,7 @@ const RouteWithMeta = ({ meta, ...routeProps }) => {
 }
 
 const MainContent = () => {
-  const { searchTerm } = useSelector(({ app }) => app)
+  const searchTerm = useSearchTerm()
   const [, , user] = useUserRecord()
 
   if (searchTerm) {
