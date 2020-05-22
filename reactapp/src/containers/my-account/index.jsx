@@ -7,6 +7,7 @@ import ErrorMessage from '../../components/error-message'
 import CreateProfileForm from '../../components/create-profile-form'
 import UsernameEditor from '../../components/username-editor'
 import AdultContentToggle from '../../components/adult-content-toggle'
+import Heading from '../../components/heading'
 
 const MyAccount = ({ auth }) => {
   const [isLoading, isErrored, user] = useDatabase('users', auth.uid)
@@ -22,7 +23,7 @@ const MyAccount = ({ auth }) => {
   if (!user) {
     return (
       <>
-        <h1>Welcome to VRCArena</h1>
+        <Heading variant="h1">Welcome to VRCArena</Heading>
         <p>
           Thanks for signing up. Before you can start uploading assets and
           interacting with the site, you need a profile.
@@ -36,11 +37,11 @@ const MyAccount = ({ auth }) => {
 
   return (
     <>
-      <h1>Your Account</h1>
+      <Heading variant="h1">Your Account</Heading>
       <p>Hi, {user.username}!</p>
-      <h2>Change your name</h2>
+      <Heading variant="h2">Change your name</Heading>
       <UsernameEditor userId={user.id} record={user} />
-      <h2>Profile settings</h2>
+      <Heading variant="h2">Profile settings</Heading>
       <AdultContentToggle />
     </>
   )

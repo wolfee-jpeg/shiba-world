@@ -7,6 +7,7 @@ import withAdminsOnly from '../../hocs/withAdminsOnly'
 import useDatabaseBackup from '../../hooks/useDatabaseBackup'
 import useDatabaseRestore from '../../hooks/useDatabaseRestore'
 import AdminUserManagement from '../../components/admin-user-management'
+import Heading from '../../components/heading'
 
 const mapStateToProps = ({ firebase: { auth } }) => ({ auth })
 
@@ -27,10 +28,7 @@ const AdminInfo = connect(mapStateToProps)(({ auth }) => {
 const DatabaseBackup = () => {
   const [textFieldValue, setTextFieldValue] = useState('lists')
   const [collectionName, setCollectionName] = useState('')
-  // eslint-disable-next-line no-unused-vars
-  const [isFetching, isErrored, isSuccess, result] = useDatabaseBackup(
-    collectionName
-  )
+  const [isFetching, isErrored, , result] = useDatabaseBackup(collectionName)
 
   if (isFetching) {
     return 'Backing up collection...'
@@ -105,7 +103,7 @@ const DatabaseRestore = () => {
 
 const Admin = () => (
   <>
-    <h1>Admin</h1>
+    <Heading variant="h1">Admin</Heading>
     <hr />
     <AdminInfo />
     <hr />

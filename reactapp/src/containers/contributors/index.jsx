@@ -1,4 +1,5 @@
 import React from 'react'
+import Heading from '../../components/heading'
 
 const contributors = [
   {
@@ -13,7 +14,7 @@ const contributors = [
 
 export default () => (
   <>
-    <h1>Contributors</h1>
+    <Heading variant="h1">Contributors</Heading>
     <p>People that have helped develop the site.</p>
     <ul>
       {contributors.map(({ name, items }) => (
@@ -28,7 +29,7 @@ export default () => (
         </li>
       ))}
     </ul>
-    <h2>Build Status</h2>
+    <Heading variant="h2">Build Status</Heading>
     <img
       src="https://api.netlify.com/api/v1/badges/d9ba52e1-13fa-4b88-94cf-a7d6065111a5/deploy-status"
       alt="Status of build"

@@ -10,6 +10,7 @@ import ErrorMessage from '../../components/error-message'
 import SuccessMessage from '../../components/success-message'
 import { scrollToTop } from '../../utils'
 import * as routes from '../../routes'
+import Heading from '../../components/heading'
 
 const EditAsset = ({ match: { params } }) => {
   const [isLoading, isErrored, asset] = useDatabase('assets', params.assetId)
@@ -21,7 +22,7 @@ const EditAsset = ({ match: { params } }) => {
 
   return (
     <>
-      <h1>Edit Asset</h1>
+      <Heading variant="h1">Edit Asset</Heading>
       {wasSaveSuccessOrFail === true && (
         <SuccessMessage>
           Save success

@@ -13,6 +13,7 @@ import CardMedia from '@material-ui/core/CardMedia'
 import Button from '@material-ui/core/Button'
 
 import RecentAssets from '../../components/recent-assets'
+import Heading from '../../components/heading'
 import * as routes from '../../routes'
 import speciesMeta from '../../species-meta'
 
@@ -60,7 +61,7 @@ const Species = ({ name, title, description, imageUrl }) => {
 
 const SpeciesBrowser = () => (
   <>
-    <h2>Species</h2>
+    <Heading variant="h2">Species</Heading>
     <div style={{ display: 'flex', flexWrap: 'wrap' }}>
       {Object.entries(speciesMeta).map(
         ([name, { name: title, shortDescription, thumbnailUrl }]) => (
@@ -102,9 +103,7 @@ const Home = ({ searchTerm }) => {
             </Typography>
           </Paper>
           <SpeciesBrowser />
-          <Typography variant="h5" component="h4" style={{ marginTop: '2rem' }}>
-            Recent Assets
-          </Typography>
+          <Heading variant="h2">Recent Assets</Heading>
           <RecentAssets />
         </>
       )}

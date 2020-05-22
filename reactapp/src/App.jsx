@@ -98,7 +98,9 @@ const App = ({ searchTerm }) => (
             <RouteWithMeta
               exact
               path={routes.browseWithVar}
-              component={BrowseAssets}
+              component={props => (
+                <BrowseAssets {...props} definitelyShowTutorials={true} />
+              )}
               meta={{
                 title: 'Browse the assets and tutorials by tag name',
                 description:

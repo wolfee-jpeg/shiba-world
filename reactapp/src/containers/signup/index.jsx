@@ -6,10 +6,11 @@ import * as routes from '../../routes'
 import LoginForm from '../../components/login-form'
 import withRedirectOnAuth from '../../hocs/withRedirectOnAuth'
 import { trackAction, actions } from '../../analytics'
+import Heading from '../../components/heading'
 
 const Login = ({ push }) => (
   <>
-    <h1>Sign Up</h1>
+    <Heading variant="h1">Sign Up</Heading>
     <p>Enter your details below to create a new account.</p>
     <LoginForm
       onSuccess={auth => {

@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import useDatabase from '../../hooks/useDatabase'
 import CreateProfileForm from '../create-profile-form'
 import UsernameEditor from '../username-editor'
+import Heading from '../heading'
 
 const mapStateToProps = ({ firebase: { auth } }) => ({ auth })
 
@@ -30,7 +31,7 @@ const AccountSummary = ({ auth }) => {
 
   return (
     <>
-      Hi, {record.username}!<h2>Change your name</h2>
+      Hi, {record.username}!<Heading variant="h2">Change your name</Heading>
       <UsernameEditor userId={record.id} record={record} />
     </>
   )

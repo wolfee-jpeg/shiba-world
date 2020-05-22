@@ -13,6 +13,7 @@ import useDatabaseQuery, {
   CollectionNames,
   AssetFieldNames
 } from '../../hooks/useDatabaseQuery'
+import Heading from '../../components/heading'
 
 const useStyles = makeStyles({
   root: {
@@ -34,7 +35,7 @@ function getTitleTextForTagName(tagName) {
 }
 
 function Title({ tagName }) {
-  return <h1>{getTitleTextForTagName(tagName)}</h1>
+  return <Heading variant="h1">{getTitleTextForTagName(tagName)}</Heading>
 }
 
 function Description({ tagName }) {
@@ -52,7 +53,7 @@ function Description({ tagName }) {
 function Tutorials({ tutorials }) {
   return (
     <>
-      <h2>Tutorials</h2>
+      <Heading variant="h2">Tutorials</Heading>
       <AssetResults assets={tutorials} />
     </>
   )
@@ -76,7 +77,8 @@ function splitResultsIntoFilesAndTutorials(results) {
 export default ({
   match: {
     params: { tagName }
-  }
+  },
+  definitelyShowTutorials
 }) => {
   const [, , user] = useUserRecord()
 
@@ -110,7 +112,8 @@ export default ({
     return <ErrorMessage>Failed to get assets by tag {tagName}</ErrorMessage>
   }
 
-  const showTutorials = tagName && tagName !== tags.tutorial
+  const showTutorials =
+    definitelyShowTutorials || (tagName && tagName !== tags.tutorial)
 
   const { files, tutorials } = splitResultsIntoFilesAndTutorials(results)
 
@@ -123,7 +126,8 @@ export default ({
       ) : (
         <AssetResults assets={!showTutorials ? files : results} />
       )}
-      {showTutorials && <Tutorials tutorials={tutorials} />}
+      {tagName === tags.tutorial ||
+        (showTutorials && <Tutorials tutorials={tutorials} />)}
     </>
   )
 }

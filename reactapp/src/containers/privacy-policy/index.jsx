@@ -1,10 +1,11 @@
 import React from 'react'
 import { Container } from '@material-ui/core'
+import Heading from '../../components/heading'
 
 export default () => (
   <>
     <Container maxWidth="md">
-      <h1>Privacy Policy</h1>
+      <Heading variant="h1">Privacy Policy</Heading>
       <p>
         Your privacy is important to us. It is our policy to respect your
         privacy regarding any information we may collect from you across our

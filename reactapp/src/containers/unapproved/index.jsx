@@ -19,6 +19,7 @@ import LoadingIndicator from '../../components/loading-indicator'
 import ErrorMessage from '../../components/error-message'
 import NoPermissionMessage from '../../components/no-permission-message'
 import * as routes from '../../routes'
+import Heading from '../../components/heading'
 
 const useStyles = makeStyles({
   table: {
@@ -128,7 +129,7 @@ export default () => {
 
   return (
     <div>
-      <h1>Unapproved assets</h1>
+      <Heading variant="h1">Unapproved assets</Heading>
       <UnapprovedAssets />
     </div>
   )

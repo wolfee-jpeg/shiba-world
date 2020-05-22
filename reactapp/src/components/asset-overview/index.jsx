@@ -17,6 +17,7 @@ import FormattedDate from '../formatted-date'
 import * as routes from '../../routes'
 import TagChip from '../tag-chip'
 import useUserRecord from '../../hooks/useUserRecord'
+import Heading from '../../components/heading'
 
 const isUrlAnImage = url =>
   url.indexOf('png') >= 0 || url.indexOf('jpg') >= 0 || url.indexOf('jpeg') >= 0
@@ -130,13 +131,11 @@ export default ({ assetId, small = false }) => {
     <>
       {isApproved === false && <NotApprovedMessage />}
       <img src={thumbnailUrl} height={300} alt="The thumbnail for the asset." />
-      <Typography
-        variant="h1"
-        style={{ fontSize: small ? '1.5rem' : '3rem', marginTop: '2rem' }}>
+      <Heading variant="h1">
         <Link to={routes.viewAssetWithVar.replace(':assetId', assetId)}>
           {title}
         </Link>
-      </Typography>
+      </Heading>
       <div className={classes.description}>
         <Markdown source={description} />
       </div>
@@ -145,18 +144,15 @@ export default ({ assetId, small = false }) => {
           ? tags.map(tagName => <TagChip key={tagName} tagName={tagName} />)
           : '(no tags)'}
       </div>
-      <Typography variant="h2" style={{ fontSize: '2rem', margin: '2rem 0' }}>
-        Files
-      </Typography>
+      <Heading variant="h2">Files</Heading>
       {fileUrls
         .filter(filterOnlyNonImageUrl)
         .filter(fileUrl => fileUrl !== thumbnailUrl)
         .map(fileUrl => (
           <FileResult key={fileUrl} url={fileUrl} />
         ))}
-      <Typography variant="h2" style={{ fontSize: '2rem', margin: '2rem 0' }}>
-        Images
-      </Typography>
+
+      <Heading variant="h2">Images</Heading>
       {fileUrls
         .filter(filterOnlyImagesUrl)
         .filter(fileUrl => fileUrl !== thumbnailUrl)

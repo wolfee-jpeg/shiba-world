@@ -10,6 +10,7 @@ import LoadingIndicator from '../../components/loading-indicator'
 import SuccessMessage from '../../components/success-message'
 import { scrollToTop } from '../../utils'
 import * as routes from '../../routes'
+import Heading from '../../components/heading'
 
 const CreateAsset = ({ auth }) => {
   const [isSaving, isSuccess, save] = useDatabaseSave('assets')
@@ -34,7 +35,7 @@ const CreateAsset = ({ auth }) => {
 
   return (
     <>
-      <h1>Upload Asset</h1>
+      <Heading variant="h1">Upload Asset</Heading>
       <AssetEditor
         onSubmit={async newFields => {
           scrollToTop()
