@@ -6,6 +6,11 @@ export const Operators = {
   ARRAY_CONTAINS: 'array-contains'
 }
 
+export const OrderDirections = {
+  ASC: 'asc',
+  DESC: 'desc'
+}
+
 export const CollectionNames = {
   Users: 'users',
   Assets: 'assets'
@@ -14,7 +19,8 @@ export const CollectionNames = {
 export const AssetFieldNames = {
   isAdult: 'isAdult',
   isApproved: 'isApproved',
-  tags: 'tags'
+  tags: 'tags',
+  createdAt: 'createdAt'
 }
 
 function getWhereClausesAsString(whereClauses) {
@@ -103,6 +109,13 @@ async function formatRawDocs(docs) {
 //   }
 // }
 
+function getOrderByAsString(orderBy) {
+  if (!orderBy) {
+    return ''
+  }
+  return orderBy.join('+')
+}
+
 export default (
   collectionName,
   whereClauses,
@@ -117,6 +130,7 @@ export default (
   // validateWhereClauses(whereClauses)
 
   const whereClausesAsString = getWhereClausesAsString(whereClauses)
+  const orderByAsString = getOrderByAsString(orderBy)
 
   async function doIt() {
     try {
@@ -142,6 +156,10 @@ export default (
 
       if (limit) {
         queryChain = queryChain.limit(limit)
+      }
+
+      if (orderBy) {
+        queryChain = queryChain.orderBy(orderBy[0], orderBy[1])
       }
 
       async function processResults(results) {
@@ -194,7 +212,7 @@ export default (
     doIt()
 
     return () => {}
-  }, [collectionName, whereClausesAsString])
+  }, [collectionName, whereClausesAsString, orderByAsString])
 
   return [isLoading, isErrored, recordOrRecords]
 }

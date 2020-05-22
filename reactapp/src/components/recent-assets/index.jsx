@@ -2,7 +2,8 @@ import React from 'react'
 import useDatabaseQuery, {
   Operators,
   CollectionNames,
-  AssetFieldNames
+  AssetFieldNames,
+  OrderDirections
 } from '../../hooks/useDatabaseQuery'
 import useUserRecord from '../../hooks/useUserRecord'
 import LoadingIndicator from '../loading-indicator'
@@ -23,7 +24,8 @@ export default () => {
   const [isLoading, isErrored, results] = useDatabaseQuery(
     CollectionNames.Assets,
     whereClauses.length ? whereClauses : undefined,
-    5
+    5,
+    [AssetFieldNames.createdAt, OrderDirections.DESC]
   )
 
   if (isLoading) {

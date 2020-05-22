@@ -18,6 +18,7 @@ import Admin from './containers/admin'
 import PrivacyPolicy from './containers/privacy-policy'
 import Contributors from './containers/contributors'
 import Unapproved from './containers/unapproved'
+import ErrorContainer from './containers/error'
 
 import PageHeader from './components/header'
 import PageFooter from './components/footer'
@@ -183,6 +184,11 @@ const App = ({ searchTerm }) => (
                 title: 'Unapproved assets',
                 description: ''
               }}
+            />
+            <Route
+              component={() => (
+                <ErrorContainer code={404} message="Page not found" />
+              )}
             />
           </Switch>
         )}

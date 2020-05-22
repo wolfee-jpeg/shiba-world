@@ -17,7 +17,7 @@ import Heading from '../../components/heading'
 import * as routes from '../../routes'
 import speciesMeta from '../../species-meta'
 
-const useSpeciesStyles = makeStyles(theme => ({
+const useSpeciesStyles = makeStyles({
   root: {
     width: 250,
     margin: '0.5rem'
@@ -25,7 +25,7 @@ const useSpeciesStyles = makeStyles(theme => ({
   media: {
     height: 250
   }
-}))
+})
 
 const Species = ({ name, title, description, imageUrl }) => {
   const classes = useSpeciesStyles()
@@ -104,7 +104,7 @@ const Home = ({ searchTerm }) => {
           </Paper>
           <SpeciesBrowser />
           <Heading variant="h2">Recent Assets</Heading>
-          <RecentAssets />
+          {/* <RecentAssets /> */}
         </>
       )}
     </>
