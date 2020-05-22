@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import Markdown from 'react-markdown'
 import { makeStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
-import Button from '@material-ui/core/Button'
 import Paper from '@material-ui/core/Paper'
 import useDatabase from '../../hooks/useDatabase'
 import LoadingIndicator from '../../components/loading-indicator'
@@ -17,7 +16,8 @@ import AddCommentForm from '../add-comment-form'
 import * as routes from '../../routes'
 import TagChip from '../tag-chip'
 import useUserRecord from '../../hooks/useUserRecord'
-import Heading from '../../components/heading'
+import Heading from '../heading'
+import Button from '../button'
 
 const isUrlAnImage = url =>
   url.indexOf('png') >= 0 || url.indexOf('jpg') >= 0 || url.indexOf('jpeg') >= 0
@@ -97,6 +97,13 @@ function filterOnlyImagesUrl(url) {
   )
 }
 
+function FileList({ fileUrls }) {
+  if (!fileUrls.length) {
+    return 'None found'
+  }
+  return fileUrls.map(fileUrl => <FileResult key={fileUrl} url={fileUrl} />)
+}
+
 export default ({ assetId, small = false }) => {
   const [isLoading, isErrored, result] = useDatabase('assets', assetId)
   const classes = useStyles()
@@ -139,37 +146,24 @@ export default ({ assetId, small = false }) => {
       <div className={classes.description}>
         <Markdown source={description} />
       </div>
+      <Heading variant="h2">Files</Heading>
+      <FileList
+        fileUrls={fileUrls
+          .filter(filterOnlyNonImageUrl)
+          .filter(fileUrl => fileUrl !== thumbnailUrl)}
+      />
+
+      <Heading variant="h2">Images</Heading>
+      <FileList
+        fileUrls={fileUrls
+          .filter(filterOnlyImagesUrl)
+          .filter(fileUrl => fileUrl !== thumbnailUrl)}
+      />
+      <Heading variant="h2">Meta</Heading>
       <div>
         {tags
           ? tags.map(tagName => <TagChip key={tagName} tagName={tagName} />)
           : '(no tags)'}
-      </div>
-      <Heading variant="h2">Files</Heading>
-      {fileUrls
-        .filter(filterOnlyNonImageUrl)
-        .filter(fileUrl => fileUrl !== thumbnailUrl)
-        .map(fileUrl => (
-          <FileResult key={fileUrl} url={fileUrl} />
-        ))}
-
-      <Heading variant="h2">Images</Heading>
-      {fileUrls
-        .filter(filterOnlyImagesUrl)
-        .filter(fileUrl => fileUrl !== thumbnailUrl)
-        .map(fileUrl => (
-          <FileResult key={fileUrl} url={fileUrl} />
-        ))}
-      <br />
-      <div>
-        {small ? (
-          <Link to={`/assets/${assetId}`}>
-            <Button color="primary">View Asset</Button>
-          </Link>
-        ) : user && user.id === createdBy.id ? (
-          <Link to={`/assets/${assetId}/edit`}>
-            <Button color="primary">Edit Asset</Button>
-          </Link>
-        ) : null}
       </div>
       <Typography component="p" style={{ margin: '1rem 0' }}>
         Created {createdAt ? <FormattedDate date={createdAt} /> : '(unknown)'}{' '}
@@ -181,9 +175,19 @@ export default ({ assetId, small = false }) => {
           {modifiedBy ? modifiedBy.username : '(unknown)'}
         </Typography>
       )}
+      <div>
+        {small ? (
+          <Link to={`/assets/${assetId}`}>
+            <Button color="primary">View Asset</Button>
+          </Link>
+        ) : user && user.id === createdBy.id ? (
+          <Link to={`/assets/${assetId}/edit`}>
+            <Button color="primary">Edit Asset</Button>
+          </Link>
+        ) : null}
+      </div>
       <Heading variant="h2">Comments</Heading>
       <CommentList assetId={assetId} />
-      <Heading variant="h3">Add Comment</Heading>
       <AddCommentForm assetId={assetId} />
     </>
   )

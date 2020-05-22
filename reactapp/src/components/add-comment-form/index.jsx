@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
-import { TextField, Button } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles'
+import TextField from '@material-ui/core/TextField'
+import Button from '../button'
 import useDatabaseSave from '../../hooks/useDatabaseSave'
 import useDatabaseDocument from '../../hooks/useDatabaseDocument'
 import { trackAction, actions } from '../../analytics'
@@ -8,6 +10,18 @@ import { CollectionNames } from '../../hooks/useDatabaseQuery'
 import ErrorMessage from '../error-message'
 import SuccessMessage from '../success-message'
 import LoadingIndicator from '../loading-indicator'
+
+const useStyles = makeStyles({
+  root: {
+    marginTop: '1rem'
+  },
+  input: {
+    width: '100%'
+  },
+  button: {
+    marginTop: '0.5rem'
+  }
+})
 
 export default ({ assetId }) => {
   if (!assetId) {
@@ -24,6 +38,7 @@ export default ({ assetId }) => {
     user && user.id
   )
   const [assetDocument] = useDatabaseDocument(CollectionNames.Assets, assetId)
+  const classes = useStyles()
 
   if (!user) {
     return null
@@ -44,14 +59,18 @@ export default ({ assetId }) => {
   }
 
   return (
-    <>
+    <div className={classes.root}>
       <TextField
+        className={classes.input}
+        label="Your comment"
         multiline
         value={textFieldValue}
         onChange={event => setTextFieldValue(event.target.value)}
+        rows={5}
+        variant="filled"
       />
-      <br />
       <Button
+        className={classes.button}
         onClick={async () => {
           const [documentId] = await save({
             parent: assetDocument,
@@ -65,8 +84,8 @@ export default ({ assetId }) => {
             userId: user.id
           })
         }}>
-        Add
+        Add Comment
       </Button>
-    </>
+    </div>
   )
 }
