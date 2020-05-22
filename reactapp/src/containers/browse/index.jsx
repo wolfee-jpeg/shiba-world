@@ -55,7 +55,7 @@ function Tutorials({ tutorials }) {
   return (
     <>
       <Heading variant="h2">Tutorials</Heading>
-      <AssetResults assets={tutorials} />
+      {tutorials.length ? <AssetResults assets={tutorials} /> : 'None found :('}
     </>
   )
 }
@@ -131,8 +131,7 @@ export default ({
     return <ErrorMessage>Failed to get assets by tag {tagName}</ErrorMessage>
   }
 
-  const showTutorials =
-    definitelyShowTutorials || (tagName && tagName !== tags.tutorial)
+  const splitResultsUp = tagName && tagName !== tags.tutorial
 
   const { files, tutorials } = splitResultsIntoFilesAndTutorials(results)
 
@@ -142,13 +141,10 @@ export default ({
       <Description tagName={tagName} />
       <TagBrowser assets={results} />
       <Heading variant="h2">Results</Heading>
-      {!results.length ? (
-        <ErrorMessage>None found</ErrorMessage>
-      ) : (
-        <AssetResults assets={!showTutorials ? files : results} />
-      )}
-      {tagName === tags.tutorial ||
-        (showTutorials && <Tutorials tutorials={tutorials} />)}
+      {!results.length && <ErrorMessage>None found</ErrorMessage>}
+      {!splitResultsUp && <AssetResults assets={results} />}
+      {splitResultsUp && <AssetResults assets={files} />}
+      {splitResultsUp && <Tutorials tutorials={tutorials} />}
     </>
   )
 }
