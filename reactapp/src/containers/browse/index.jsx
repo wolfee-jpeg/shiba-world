@@ -14,6 +14,7 @@ import useDatabaseQuery, {
   AssetFieldNames
 } from '../../hooks/useDatabaseQuery'
 import Heading from '../../components/heading'
+import TagChip from '../../components/tag-chip'
 
 const useStyles = makeStyles({
   root: {
@@ -74,6 +75,24 @@ function splitResultsIntoFilesAndTutorials(results) {
   )
 }
 
+function TagBrowser({ assets, filterOutTag }) {
+  return (
+    <>
+      <Heading variant="h2">Popular Tags</Heading>
+      {assets
+        .reduce((allTags, { tags }) => allTags.concat(tags), [])
+        .sort()
+        .filter(
+          (tagName, idx, self) =>
+            tagName !== filterOutTag && self.indexOf(tagName) === idx
+        )
+        .map(tagName => (
+          <TagChip key={tagName} tagName={tagName} />
+        ))}
+    </>
+  )
+}
+
 export default ({
   match: {
     params: { tagName }
@@ -121,6 +140,8 @@ export default ({
     <>
       <Title tagName={tagName} />
       <Description tagName={tagName} />
+      <TagBrowser assets={results} />
+      <Heading variant="h2">Results</Heading>
       {!results.length ? (
         <ErrorMessage>None found</ErrorMessage>
       ) : (

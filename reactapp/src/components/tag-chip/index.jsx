@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import * as routes from '../../routes'
 
 const useStyles = makeStyles({
-  chip: { marginRight: '0.25rem', cursor: 'pointer' }
+  chip: { margin: '0 0.25rem 0.25rem 0', cursor: 'pointer' }
 })
 
 export default ({ tagName, isFilled = true }) => {

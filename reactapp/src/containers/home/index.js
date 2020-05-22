@@ -12,7 +12,7 @@ import CardContent from '@material-ui/core/CardContent'
 import CardMedia from '@material-ui/core/CardMedia'
 import Button from '@material-ui/core/Button'
 
-import RecentAssets from '../../components/recent-assets'
+// import RecentAssets from '../../components/recent-assets'
 import Heading from '../../components/heading'
 import * as routes from '../../routes'
 import speciesMeta from '../../species-meta'
