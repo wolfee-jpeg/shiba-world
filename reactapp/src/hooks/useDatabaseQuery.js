@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { firestore } from 'firebase/app'
+import { useRef } from 'react'
 
 export const Operators = {
   EQUALS: '==',
@@ -131,6 +132,7 @@ export default (
   const [recordOrRecords, setRecordOrRecords] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
   const [isErrored, setIsErrored] = useState(false)
+  const unsubscribeFromSnapshotRef = useRef()
 
   // validateWhereClauses(whereClauses)
 
@@ -179,7 +181,9 @@ export default (
       }
 
       if (subscribe) {
-        queryChain.onSnapshot(processResults)
+        unsubscribeFromSnapshotRef.current = queryChain.onSnapshot(
+          processResults
+        )
       } else {
         processResults(await queryChain.get())
 
@@ -201,7 +205,13 @@ export default (
 
     doIt()
 
-    return () => {}
+    return () => {
+      // Avoid setting state on an unmounted component
+      const unsubscribe = unsubscribeFromSnapshotRef.current
+      if (unsubscribe) {
+        unsubscribe()
+      }
+    }
   }, [collectionName, whereClausesAsString, orderByAsString])
 
   return [isLoading, isErrored, recordOrRecords]
