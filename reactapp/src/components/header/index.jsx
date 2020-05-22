@@ -83,6 +83,11 @@ const navItems = [
     label: UnapprovedMenuItemLabel,
     url: routes.unapproved,
     requiresEditor: true
+  },
+  {
+    label: 'Admin',
+    url: routes.admin,
+    requiresAdmin: true
   }
 ]
 
@@ -176,6 +181,9 @@ function canShowMenuItem(menuItem, user) {
     return false
   }
   if (menuItem.requiresEditor && (!user || user.isEditor !== true)) {
+    return false
+  }
+  if (menuItem.requiresAdmin && (!user || user.isAdmin !== true)) {
     return false
   }
   return true
