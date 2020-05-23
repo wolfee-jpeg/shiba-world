@@ -4,6 +4,7 @@ import Markdown from 'react-markdown'
 import { makeStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import Paper from '@material-ui/core/Paper'
+import { Helmet } from 'react-helmet'
 import useDatabase from '../../hooks/useDatabase'
 import LoadingIndicator from '../../components/loading-indicator'
 import ErrorMessage from '../../components/error-message'
@@ -125,6 +126,17 @@ function FileList({ fileUrls }) {
   return fileUrls.map(fileUrl => <FileResult key={fileUrl} url={fileUrl} />)
 }
 
+function getDescriptionForHtmlMeta(desc) {
+  let newDesc = desc
+    .split('\n')
+    .join(' ')
+    .replace(/\s\s+/g, ' ')
+  if (newDesc.length > 255) {
+    return `${newDesc.substr(0, 255)}...`
+  }
+  return newDesc
+}
+
 export default ({ assetId, small = false }) => {
   const [isLoading, isErrored, result] = useDatabase('assets', assetId)
   const classes = useStyles()
@@ -143,6 +155,7 @@ export default ({ assetId, small = false }) => {
   }
 
   const {
+    id,
     title,
     description,
     createdAt,
@@ -157,6 +170,27 @@ export default ({ assetId, small = false }) => {
 
   return (
     <>
+      <Helmet>
+        <title>
+          {title} | Uploaded by {createdBy.username} | VRCArena
+        </title>
+        <meta
+          name="description"
+          content={getDescriptionForHtmlMeta(description)}
+        />
+        <meta property="og:title" content={title} />
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:description"
+          content={getDescriptionForHtmlMeta(description)}
+        />
+        <meta
+          property="og:url"
+          content={`https://www.vrcarena.com/assets/${id}`}
+        />
+        <meta property="og:image" content={thumbnailUrl} />
+        <meta property="og:site_name" content="VRCArena" />
+      </Helmet>
       {isApproved === false && <NotApprovedMessage />}
       <img src={thumbnailUrl} height={300} alt="The thumbnail for the asset." />
       <Heading variant="h1">

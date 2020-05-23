@@ -2,6 +2,7 @@ import React from 'react'
 import Paper from '@material-ui/core/Paper'
 import { makeStyles } from '@material-ui/core/styles'
 import Markdown from 'react-markdown'
+import { Helmet } from 'react-helmet'
 import useUserRecord from '../../hooks/useUserRecord'
 import LoadingIndicator from '../../components/loading-indicator'
 import AssetResults from '../../components/asset-results'
@@ -136,6 +137,18 @@ export default ({
 
   return (
     <>
+      {tagName && tagName === tags.tutorial && (
+        <Helmet>
+          <title>
+            Browse tutorials and guides for working in Unity, Substance Painter,
+            Blender and more | VRChat
+          </title>
+          <meta
+            name="description"
+            content="This is a list of all of the tutorials and guides created by other users. Read them to learn about how to do things in Unity, Substance Painter, Blender and other kinds of software."
+          />
+        </Helmet>
+      )}
       <Title tagName={tagName} />
       <Description tagName={tagName} />
       <TagBrowser assets={results} />

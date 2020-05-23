@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Route, Switch } from 'react-router-dom'
 import { Container } from '@material-ui/core'
+import { Helmet } from 'react-helmet'
 
 import * as routes from './routes'
 
@@ -26,16 +27,23 @@ import useUserRecord from './hooks/useUserRecord'
 import SetupProfile from './components/setup-profile'
 import useSearchTerm from './hooks/useSearchTerm'
 
-const RouteWithMeta = ({ meta, ...routeProps }) => {
-  useEffect(() => {
-    document.title = `${meta.title} | VRC Arena`
-
-    document
-      .querySelector('meta[name="description"]')
-      .setAttribute('content', meta.description)
-  }, [meta.title, meta.description])
-
-  return <Route {...routeProps} />
+const RouteWithMeta = ({ meta, component: Component, ...routeProps }) => {
+  return (
+    <Route
+      {...routeProps}
+      component={props => (
+        <>
+          {meta && (
+            <Helmet>
+              <title>{meta.title} | VRCArena</title>
+              <meta name="description" content={meta.description} />
+            </Helmet>
+          )}
+          <Component {...props} />
+        </>
+      )}
+    />
+  )
 }
 
 const MainContent = () => {
