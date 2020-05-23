@@ -36,6 +36,8 @@ They were originally a [RimWorld mod](https://rimworldbase.com/avali-mod/) but h
 Useful links:
 - [The Official Avali Wiki](https://avali.fandom.com/wiki/The_Official_Avali_Wiki)`,
     thumbnailUrl: avaliImageUrl
+  [Reverse Avali Download](https://vrcmods.com/item/5305)
+  [Avali 1.1 Download](https://vrcmods.com/item/3457)
   },
   [species.BestBoi]: {
     name: 'Best Boi',
